@@ -21,7 +21,7 @@ url: "privacytrustlab.github.io" # the base hostname & protocol for your site, e
 twitter_usernames:
   - rzshokri
 
-show_excerpts: True
+show_excerpts: False
 
 header_pages:
  - about.md
