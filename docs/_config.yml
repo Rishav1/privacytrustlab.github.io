@@ -27,7 +27,7 @@ header_pages:
  - about.md
 
 # Build settings
-markdown: kramdown
+markdown: CommonMarkGhPages
 theme: minima
 plugins:
   - jekyll-feed

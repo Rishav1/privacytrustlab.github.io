@@ -15,46 +15,48 @@ The key to building trustworthy AI systems is ensuring that they are robust, fai
 
 Training a machine learning model refers to finding a set of parameters that optimize an average loss function computed over training dataset. Optimizing for such average prediction accuracy can come at the expense of fairness, as the performance of the model might not be optimal on certain sub-populations. As per the regulatory requirements, it is mandatory to ensure that decision making systems are not inherently biased against certain protected groups, that were historically discriminated against. 
 
-In order to address this problem, multiple definitions of fairness were proposed in the literature. Examples include metric equality across sensitive groups [1, 2], individual fairness [3], causality [4], and many techniques to satisfy group-based fairness such as pre-processing methods [5, 6], in-processing methods [7, 8, 9, 10], and post-processing methods [11].
+In order to address this problem, multiple definitions of fairness were proposed in the literature. Examples include metric equality across sensitive groups [[Calders et al., 2009](#Calders09); [Hardt et al., 2016](#Hardt16)], individual fairness [[Dwork et al., 2012](#Dwork12)], causality [[Dwork et al., 2017](#Kusner17)], and many techniques to satisfy group-based fairness such as pre-processing methods [[Madras et al., 2018](#Madras18); [Zemel et al., 2013](#Zemel13)], in-processing methods [[Agarwal et al., 2018](#Agarwal18); [Kamishima et al., 2011](#Kamishima11); [Zafar et al., 2015](#Zafar15); [Zafar et al., 2017](#Zafar17)], and post-processing methods [[Hardt et al., 2016](#Hardt16)].
 
-Towards minimizing discrimination against a group, fair machine learning algorithms strive to equalize the behavior of a model across different groups, by imposing a fairness constraint on models. Imposing fairness constraints might come at a cost of the model’s performance. The effect of fair classification on accuracy and the compatibility of various definitions with each other have been studied in recent work [12, 13]. It is shown that achieving equal calibration, false positive rate and false negative rate is impossible, if the fraction of positive labeled examples is different across sensitive groups.
+Towards minimizing discrimination against a group, fair machine learning algorithms strive to equalize the behavior of a model across different groups, by imposing a fairness constraint on models. Imposing fairness constraints might come at a cost of the model’s performance. The effect of fair classification on accuracy and the compatibility of various definitions with each other have been studied in recent work [[Corbett-Davies et al., 2018](#Corbett-Davies17); [Kleinberg et al., 2016](#Kleinberg16)]. It is shown that achieving equal calibration, false positive rate and false negative rate is impossible, if the fraction of positive labeled examples is different across sensitive groups.
 
-In our recent work [14], we show that imposing group-fairness constraints on learning algorithms decreases their robustness to poisoning attacks. We specifically provide evidence that an attacker that can only control the sampling and labeling process for a fraction of the training data can significantly degrade the test accuracy of the models learned with fairness constraints. We also show that learning with fairness constraints in presence of such adversarial bias results in a classifier that not only has poor test accuracy but is also potentially more discriminatory on test data. In fact, from a practical perspective, such bias can easily and stealthily be perpetrated in many existing systems, as similar to historical discrimination and/or selection bias.
-In a recent development, the research community has also started to pay attention to the temporal impact of fair models. While the goal of fairness is to promote the well-being of the protected groups, [15] shows that being fair can cause harm in cases where an unconstrained objective would not when the data changes over time.
+In our recent work [[Hongyan et al., 2020](#Hongyan20)], we show that imposing group-fairness constraints on learning algorithms decreases their robustness to poisoning attacks. We specifically provide evidence that an attacker that can only control the sampling and labeling process for a fraction of the training data can significantly degrade the test accuracy of the models learned with fairness constraints. We also show that learning with fairness constraints in presence of such adversarial bias results in a classifier that not only has poor test accuracy but is also potentially more discriminatory on test data. In fact, from a practical perspective, such bias can easily and stealthily be perpetrated in many existing systems, as similar to historical discrimination and/or selection bias.
+In a recent development, the research community has also started to pay attention to the temporal impact of fair models. While the goal of fairness is to promote the well-being of the protected groups, [Liu et al., 2019](#Liu19) show that being fair can cause harm in cases where an unconstrained objective would not when the data changes over time.
 
 Hence, an important research direction in FairML is to study the accuracy, robustness guarantees of fair machine learning algorithms, the potential consequences of using such algorithms in presence of adversarially biased data, and how their behavior changes over time.  Another interesting and crucial challenge is to design fair learning algorithms that are also robust to poisoning attacks.
 
-### References
 
-[1] Toon Calders, Faisal Kamiran, and Mykola Pechenizkiy. Building classifiers with independency constraints. In 2009 IEEE International Conference on Data Mining Workshops, pages 13–18. IEEE, 2009.
+### References 
 
-[2] Moritz Hardt, Eric Price, Nati Srebro, et al. Equality of opportunity in supervised learning. In Advances in neural information processing systems, pages 3315–3323, 2016.
 
-[3] Cynthia Dwork, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. Fairness through awareness. In Innovations in Theoretical Computer Science (ITCS), pages 214–226, 2012.
+<a name="Calders09"></a> Toon Calders, Faisal Kamiran, and Mykola Pechenizkiy. Building classifiers with independency constraints. In 2009 IEEE International Conference on Data Mining Workshops, pages 13–18. IEEE, 2009. 
 
-[4] Matt J Kusner, Joshua Loftus, Chris Russell, and Ricardo Silva. Counterfactual fairness. In Advances in Neural Information Processing Systems, pages 4066–4076, 2017.
+<a name="Hardt16"></a>  Moritz Hardt, Eric Price, Nati Srebro, et al. Equality of opportunity in supervised learning. In Advances in neural information processing systems, pages 3315–3323, 2016.
 
-[5] David Madras, Elliot Creager, Toniann Pitassi, and Richard Zemel. Learning adversarially fair and transferable representations. arXiv preprint arXiv:1802.06309, 2018.
+<a name="Dwork12"></a> Cynthia Dwork, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. Fairness through awareness. In Innovations in Theoretical Computer Science (ITCS), pages 214–226, 2012.
 
-[6] Rich Zemel, Yu Wu, Kevin Swersky, Toni Pitassi, and Cynthia Dwork. Learning fair representations. In International Conference on Machine Learning, pages 325–333, 2013.
+<a name="Kusner17"></a> Matt J Kusner, Joshua Loftus, Chris Russell, and Ricardo Silva. Counterfactual fairness. In Advances in Neural Information Processing Systems, pages 4066–4076, 2017.
 
-[7] Alekh Agarwal, Alina Beygelzimer, Miroslav Dudik, John Langford, and Hanna Wallach. A reductions approach to fair classification. 2018.
+<a name="Madras18"></a> David Madras, Elliot Creager, Toniann Pitassi, and Richard Zemel. Learning adversarially fair and transferable representations. arXiv preprint arXiv:1802.06309, 2018.
+		
+<a name="Zemel13"></a> Rich Zemel, Yu Wu, Kevin Swersky, Toni Pitassi, and Cynthia Dwork. Learning fair representations. In International Conference on Machine Learning, pages 325–333, 2013.
 
-[8] Toshihiro Kamishima, Shotaro Akaho, and Jun Sakuma. Fairness-aware learning through regularization approach. In 2011 IEEE 11th International Conference on Data Mining Workshops, pages 643–650. IEEE, 2011.
+<a name="Agarwal18"></a> lekh Agarwal, Alina Beygelzimer, Miroslav Dudik, John Langford, and Hanna Wallach. A reductions approach to fair classification. 2018.
 
-[9] Muhammad Bilal Zafar, Isabel Valera, Manuel Gomez Rodriguez, and Krishna P Gummadi. Fairness constraints: Mechanisms for fair classification. arXiv preprint arXiv:1507.05259, 2015.
+<a name="Kamishima11"></a> Toshihiro Kamishima, Shotaro Akaho, and Jun Sakuma. Fairness-aware learning through regularization approach. In 2011 IEEE 11th International Conference on Data Mining Workshops, pages 643–650. IEEE, 2011.
 
-[10] Muhammad Bilal Zafar, Isabel Valera, Manuel Gomez Rodriguez, and Krishna P Gummadi. Fairness beyond disparate treatment & disparate impact: Learning classification without disparate mistreatment. In Proceedings of the 26th international conference on world wide web, pages 1171–1180, 2017.
+<a name="Zafar15"></a> Muhammad Bilal Zafar, Isabel Valera, Manuel Gomez Rodriguez, and Krishna P Gummadi. Fairness constraints: Mechanisms for fair classification. arXiv preprint arXiv:1507.05259, 2015.
 
-[11] Moritz Hardt, Eric Price, Nati Srebro, et al. Equality of opportunity in supervised learning. In Advances in neural information processing systems, pages 3315–3323, 2016.
+<a name="Zafar17"></a> Muhammad Bilal Zafar, Isabel Valera, Manuel Gomez Rodriguez, and Krishna P Gummadi. Fairness beyond disparate treatment & disparate impact: Learning classification without disparate mistreatment. In Proceedings of the 26th international conference on world wide web, pages 1171–1180, 2017.
 
-[12] Sam Corbett-Davies, Emma Pierson, Avi Feller, Sharad Goel, and Aziz Huq. Algorithmic decision making and the cost of fairness. In Proceedings of the 23rd ACMSIGKDD International Conference on Knowledge Discovery and Data Mining, pages 797–806, 2017.
+<a name="Corbett-Davies17"></a> [12] Sam Corbett-Davies, Emma Pierson, Avi Feller, Sharad Goel, and Aziz Huq. Algorithmic decision making and the cost of fairness. In Proceedings of the 23rd ACMSIGKDD International Conference on Knowledge Discovery and Data Mining, pages 797–806, 2017.
 
-[13] Jon M. Kleinberg, Sendhil Mullainathan, and " Manish Raghavan. Inherent trade-offs in the fair determination of risk scores.
+<a name="Kleinberg16"></a> Jon M. Kleinberg, Sendhil Mullainathan, and Manish Raghavan. Inherent trade-offs in the fair determination of risk scores. arXiv preprint arXiv:1609.05807, 2016.
 
-[14] Chang, Hongyan, et al. "On Adversarial Bias and the Robustness of Fair Machine Learning." arXiv preprint arXiv:2006.08669 (2020).
+<a name="Hongyan20"></a> Chang, Hongyan, et al. "On Adversarial Bias and the Robustness of Fair Machine Learning." arXiv preprint arXiv:2006.08669 (2020).
 
-[15] Liu, Lydia T., et al. "Delayed impact of fair machine learning." Proceedings of the 28th International Joint Conference on Artificial Intelligence. AAAI Press, 2019
+<a name="Liu19"></a> Liu, Lydia T., et al. "Delayed impact of fair machine learning." Proceedings of the 28th International Joint Conference on Artificial Intelligence. AAAI Press, 2019
+
+</details>
 
 ## Interpretability
 The inherent complexity of machine learning models makes it increasingly difficult to comprehend how and why they make certain classification decisions. Research on interpretable machine learning aims to counteract this development. At least three different significant motivations for interpretable machine learning have been identified [1]:
