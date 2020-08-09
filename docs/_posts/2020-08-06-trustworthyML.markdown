@@ -13,10 +13,17 @@ The key to building trustworthy AI systems is ensuring that they are robust, fai
 
 ## Fairness
 
-Training a machine learning model refers to finding a set of parameters that optimize an average loss function computed over training dataset. Optimizing for such average prediction accuracy can come at the expense of fairness, as the performance of the model might not be optimal on certain sub-populations. As per the regulatory requirements, it is mandatory to ensure that decision making systems are not inherently biased against certain protected groups, that were historically discriminated against. 
+On May 23rd 2016, the nonprofit news platform ProPublica published an article in which it accused an algorithm used to predict the recidivism risks of criminals in many parts of the U.S to be biased against black defendants [[Angwin et al., 2016](#Angwin16)]. The company behind rebutted the claim an argued that the analysis was faulty. The story nevertheless sparked new interest by the machine learning community into the problem of machine fairness and it is by far not the only example of uncovered bias of (machine learning) algorithms. Some famous examples are the work by [Buolamwini and Gebru, 2018](Buolamwini18) that demonstrated wide disparities in prediction accuracy, depending on skin type and gender, of commercial gender classification systems and the [news stories](https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G) about Amazon stopping the implementation of an AI recruitment tool after it showed bias against women. Problems with (un)fairness of machine learning algorithms can be found in many different application domains and solving them is an active area of research. 
 
-In order to address this problem, multiple definitions of fairness were proposed in the literature. Examples include metric equality across sensitive groups [[Calders et al., 2009](#Calders09); [Hardt et al., 2016](#Hardt16)], individual fairness [[Dwork et al., 2012](#Dwork12)], causality [[Dwork et al., 2017](#Kusner17)], and many techniques to satisfy group-based fairness such as pre-processing methods [[Madras et al., 2018](#Madras18); [Zemel et al., 2013](#Zemel13)], in-processing methods [[Agarwal et al., 2018](#Agarwal18); [Kamishima et al., 2011](#Kamishima11); [Zafar et al., 2015](#Zafar15); [Zafar et al., 2017](#Zafar17)], and post-processing methods [[Hardt et al., 2016](#Hardt16)].
+Formally, training a machine learning model refers to finding a set of parameters that optimize an average loss function computed over training dataset. However, the parameters that minimize an overall loss might have very different outcomes for different subpopulations and it is often the majority, for which the most and the best data is available, that benefits most from these models. 
 
+### Definitions of Fairness
+Be for one can address unfairness a formal definition of what it means to be fair is needed. In fact many formal definitions with different focus have been proposed.  Some of these metrics focus on equality across sensitive groups [[Calders et al., 2009](#Calders09); [Hardt et al., 2016](#Hardt16)] others focus on the fairness of individuals and are trying to formalize a notion that similar people should be treated similarly [[Dwork et al., 2012](#Dwork12)]. Yet another approach is to establish causality [[Kusner et al., 2017](#Kusner17)] instead of relying on potentially biased correlations in the data.
+
+### Techniques  to establish Fairness
+Many techniques to satisfy group-based fairness such as pre-processing methods [[Madras et al., 2018](#Madras18); [Zemel et al., 2013](#Zemel13)], in-processing methods [[Agarwal et al., 2018](#Agarwal18); [Kamishima et al., 2011](#Kamishima11); [Zafar et al., 2015](#Zafar15); [Zafar et al., 2017](#Zafar17)], and post-processing methods [[Hardt et al., 2016](#Hardt16)].
+
+### Challenges when establishing Fairness
 Towards minimizing discrimination against a group, fair machine learning algorithms strive to equalize the behavior of a model across different groups, by imposing a fairness constraint on models. Imposing fairness constraints might come at a cost of the model’s performance. The effect of fair classification on accuracy and the compatibility of various definitions with each other have been studied in recent work [[Corbett-Davies et al., 2018](#Corbett-Davies17); [Kleinberg et al., 2016](#Kleinberg16)]. It is shown that achieving equal calibration, false positive rate and false negative rate is impossible, if the fraction of positive labeled examples is different across sensitive groups.
 
 In our recent work [[Hongyan et al., 2020](#Hongyan20)], we show that imposing group-fairness constraints on learning algorithms decreases their robustness to poisoning attacks. We specifically provide evidence that an attacker that can only control the sampling and labeling process for a fraction of the training data can significantly degrade the test accuracy of the models learned with fairness constraints. We also show that learning with fairness constraints in presence of such adversarial bias results in a classifier that not only has poor test accuracy but is also potentially more discriminatory on test data. In fact, from a practical perspective, such bias can easily and stealthily be perpetrated in many existing systems, as similar to historical discrimination and/or selection bias.
@@ -26,6 +33,12 @@ Hence, an important research direction in FairML is to study the accuracy, robus
 
 
 ### References 
+
+
+
+<a name="Angwin16"></a> Angwin, Julia, et al. "Machine bias." ProPublica, May 23 (2016): 2016.
+
+<a name="Buolamwini18"></a> Buolamwini, Joy, and Timnit Gebru. "Gender shades: Intersectional accuracy disparities in commercial gender classification." Conference on fairness, accountability and transparency. 2018.
 
 
 <a name="Calders09"></a> Toon Calders, Faisal Kamiran, and Mykola Pechenizkiy. Building classifiers with independency constraints. In 2009 IEEE International Conference on Data Mining Workshops, pages 13–18. IEEE, 2009. 
