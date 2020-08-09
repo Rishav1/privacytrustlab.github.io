@@ -59,60 +59,60 @@ Hence, an important research direction in FairML is to study the accuracy, robus
 </details>
 
 ## Interpretability
-The inherent complexity of machine learning models makes it increasingly difficult to comprehend how and why they make certain classification decisions. Research on interpretable machine learning aims to counteract this development. At least three different significant motivations for interpretable machine learning have been identified [1]:
+The inherent complexity of machine learning models makes it increasingly difficult to comprehend how and why they make certain classification decisions. Research on interpretable machine learning aims to counteract this development. At least three different significant motivations for interpretable machine learning have been identified [[Selbst et al., 2018](#Selbst18)]:
 
 1) Explanations are necessary to give agency to individuals affected by an automated decision. Decisions based on incorrect data or wrong assumptions can only be corrected if they are understood. Finally, interpretability allows a person to strategically change their behavior and obtain a positive outcome in the future.
 
 2) An auditor can use explanations to investigate a machine learning model. Explanations might help to improve a model's performance for its initial purpose. They can also be used to discover undesirable side-effects. 
 
-3) From a moral point, it is inherently unjust to subject a human to black-box decision making. If a fully automatic algorithmic decision cannot be scrutinized, it automatically violates humans personhood, dignity, and autonomy. However, whether or not such a (human) right to explanation exists is still under discussion and has not been broadly legally established [2].
+3) From a moral point, it is inherently unjust to subject a human to black-box decision making. If a fully automatic algorithmic decision cannot be scrutinized, it automatically violates humans personhood, dignity, and autonomy. However, whether or not such a (human) right to explanation exists is still under discussion and has not been broadly legally established [[Wachter et al., 2017](#Wachter17)].
 
 Techniques to achieve interpretable machine learning can be split into two subareas. The first area focuses on creating machine learning algorithms that are inherently interpretable. Those techniques mainly focus on restricting the type or size of used models. The second area focuses on creating explanations or interpretations for already existing methods. The latter can be divided into approaches focusing on a single decision and methods covering the entire model.
 
 No clear and widely agreed-upon definition for interpretability exists. The terms explainability, transparency, and interpretability are often interchangeably used. The meaning of interpretability might vary widely from person to person as well among different application areas. Clear definitions will help to develop better-structured evaluation methods and metrics. Conducting comprehensive field tests to see which of the existing methods can obtain the desired results, will help to get from a collection of proposed tools to achieving the goals connected to the above motivations.
 
-The exploration of interactions between interpretability and other aspects of machine learning like performance, privacy, fairness, and robustness will lead to new insights. While many authors claim that inherently interpretable models come with a significant tradeoff in a model's accuracy, others state that this tradeoff is minimal [3]. There is some evidence that model explanations leak private information about the model's data as well as the model itself [4, 5]. Finally, recent work questions the robustness of popular explanation methods [6].
+The exploration of interactions between interpretability and other aspects of machine learning like performance, privacy, fairness, and robustness will lead to new insights. While many authors claim that inherently interpretable models come with a significant tradeoff in a model's accuracy, others state that this tradeoff is minimal [[Rudin, 2019](#Rudin19)]. There is some evidence that model explanations leak private information about the model's data as well as the model itself [[Shokri, 2019](#Shokri19); [Milli, 2019](#Milli19)]. Finally, recent work questions the robustness of popular explanation methods [[Slack et al., 2029](#Slack20)].
 
 ### References
 
-[1] Selbst, Andrew D., and Solon Barocas. "The intuitive appeal of explainable machines." Fordham L. Rev. 87 (2018): 1085.
+<a name="Selbst18"></a>  Selbst, Andrew D., and Solon Barocas. "The intuitive appeal of explainable machines." Fordham L. Rev. 87 (2018): 1085.
 
-[2] Wachter, Sandra, Brent Mittelstadt, and Luciano Floridi. "Why a right to explanation of automated decision-making does not exist in the general data protection regulation." International Data Privacy Law 7.2 (2017): 76-99.
+<a name="Wachter17"></a> Wachter, Sandra, Brent Mittelstadt, and Luciano Floridi. "Why a right to explanation of automated decision-making does not exist in the general data protection regulation." International Data Privacy Law 7.2 (2017): 76-99.
 
-[3] Rudin, Cynthia. "Stop explaining black-box machine learning models for high stakes decisions and use interpretable models instead." Nature Machine Intelligence 1.5 (2019): 206-215.
+<a name="Rudin19"></a> Rudin, Cynthia. "Stop explaining black-box machine learning models for high stakes decisions and use interpretable models instead." Nature Machine Intelligence 1.5 (2019): 206-215.
 
-[4] Shokri, Reza, Martin Strobel, and Yair Zick. "Privacy risks of explaining machine learning models." arXiv preprint arXiv:1907.00164 (2019).
+<a name="Shokri19"></a> Shokri, Reza, Martin Strobel, and Yair Zick. "Privacy risks of explaining machine learning models." arXiv preprint arXiv:1907.00164 (2019).
 
-[5] Milli, Smitha, et al. "Model reconstruction from model explanations." Proceedings of the Conference on Fairness, Accountability, and Transparency. 2019.
+<a name="Milli19"></a> Milli, Smitha, et al. "Model reconstruction from model explanations." Proceedings of the Conference on Fairness, Accountability, and Transparency. 2019.
 
-[6] Slack, Dylan, et al. "Fooling lime and shap: Adversarial attacks on post hoc explanation methods." Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society. 2020.
+<a name="Slack20"></a> Slack, Dylan, et al. "Fooling lime and shap: Adversarial attacks on post hoc explanation methods." Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society. 2020.
 
 ## Robustness
 A common assumption in machine learning is that the training data and the test data follow the same distribution. However, this assumption can be violated in practice, say due to injection of poisoning data into the training set by an attacker or due to corruption of test data (adversarial examples). Understanding these threats against functionality of machine learning models and designing systems that are robust to the attacks is one of the core requirements for building trustworthy AI.
 
-Machine learning systems are susceptible to data poisoning attacks. Models that achieve high accuracy on clean data can be made to learn significantly different decision boundaries with the injection of a small amount of poisoned data [1]. In indiscriminate attacks, the attacker's objective is to degrade the test accuracy of the model. In targeted attacks, the attacker seeks to impose the loss on specific test data points or small sub-populations. In backdoor attacks, the attacker aims at creating backdoor instances so that the victim learning system will be misled to classify the backdoor instances as a target label specified by the attacker. Instead of attacking the training process, in case of adversarial examples, the attacker modifies test inputs to look similar to clean test examples but can make the model mis-predict them.  
+Machine learning systems are susceptible to data poisoning attacks. Models that achieve high accuracy on clean data can be made to learn significantly different decision boundaries with the injection of a small amount of poisoned data [[Steinhardt et al., 2017](#Steinhardt17)]. In indiscriminate attacks, the attacker's objective is to degrade the test accuracy of the model. In targeted attacks, the attacker seeks to impose the loss on specific test data points or small sub-populations. In backdoor attacks, the attacker aims at creating backdoor instances so that the victim learning system will be misled to classify the backdoor instances as a target label specified by the attacker. Instead of attacking the training process, in case of adversarial examples, the attacker modifies test inputs to look similar to clean test examples but can make the model mis-predict them.  
 
-Training time robustness aims to learn a model that minimizes the out-of-training (??) error even if the training dataset is noisy (or poisoned by an attacker). Data sanitization, also known as outlier detection and anomaly detection is a very common type of defense [2,4,5]. In poisoning attacks, the attacker is by definition injecting something into the training dataset that is very different from what it should include. Hence, we can use anomaly detectors to filter out training points that look suspicious. However, it has been shown that poisoning attacks can bypass sanitization defenses [3]. The attacker can generate poisoning points that are very similar to the true data distribution but that still successfully mislead the model. In addition, data sanitization defense can also break down when sanitization rules are created based on the poisoning dataset [1]. Testing-stage defense against backdoor attacks reverses a backdoor trigger from the victim model, and then fixes the model through retraining or pruning [6]. However, these defenses do not provide any theoretical guarantees of robustness.
+Training time robustness aims to learn a model that minimizes the out-of-training (??) error even if the training dataset is noisy (or poisoned by an attacker). Data sanitization, also known as outlier detection and anomaly detection is a very common type of defense [[Cretu et al., 2008](#Cretu08); [Chen et al., 2018](#Chen18); [Tran et al., 2018](#Tran18)]. In poisoning attacks, the attacker is by definition injecting something into the training dataset that is very different from what it should include. Hence, we can use anomaly detectors to filter out training points that look suspicious. However, it has been shown that poisoning attacks can bypass sanitization defenses [[Koh et al., 2017](#Koh18)].. The attacker can generate poisoning points that are very similar to the true data distribution but that still successfully mislead the model. In addition, data sanitization defense can also break down when sanitization rules are created based on the poisoning dataset [[Steinhardt et al., 2017](#Steinhardt17)]. Testing-stage defense against backdoor attacks reverses a backdoor trigger from the victim model, and then fixes the model through retraining or pruning [[Wang et al., 2019](#Wang19)].. However, these defenses do not provide any theoretical guarantees of robustness.
 
-The objective of test time robustness is to ensure that the model produces the same prediction for points generated from the actual test distribution, even if the points are slightly modified. Adversarial training is commonly used as a defense method against adversarial examples. The high-level idea is to generate a lot of adversarial examples and explicitly train the model not to be fooled by each of them. Most of the existing adversarial training based defenses do not provide robustness guarantees and demonstrate the robustness property via empirical results. However, as shown in [8], adversarial robustness is difficult to measure and most papers get it wrong enough that the results are meaningless.
+The objective of test time robustness is to ensure that the model produces the same prediction for points generated from the actual test distribution, even if the points are slightly modified. Adversarial training is commonly used as a defense method against adversarial examples. The high-level idea is to generate a lot of adversarial examples and explicitly train the model not to be fooled by each of them. Most of the existing adversarial training based defenses do not provide robustness guarantees and demonstrate the robustness property via empirical results. However, as shown in [[Athalye et al., 2018](#Athalye18)], adversarial robustness is difficult to measure and most papers get it wrong enough that the results are meaningless.
 
 In conclusion, designing provably robust algorithms for training in presence of poisoning data and for mitigating adversarial examples are still open problems.
 
 
 ### References
 
-[1] Steinhardt, Jacob, Pang Wei W. Koh, and Percy S. Liang. "Certified defenses for data poisoning attacks." Advances in neural information processing systems. 2017.
+<a name="Steinhardt17"></a> Steinhardt, Jacob, Pang Wei W. Koh, and Percy S. Liang. "Certified defenses for data poisoning attacks." Advances in neural information processing systems. 2017.
 
-[2] Cretu, Gabriela F., et al. "Casting out demons: Sanitizing training data for anomaly sensors." 2008 IEEE Symposium on Security and Privacy (sp 2008). IEEE, 2008.
+<a name="Cretu08"></a> Cretu, Gabriela F., et al. "Casting out demons: Sanitizing training data for anomaly sensors." 2008 IEEE Symposium on Security and Privacy (sp 2008). IEEE, 2008.
 
-[3] Koh, Pang Wei, Jacob Steinhardt, and Percy Liang. "Stronger data poisoning attacks break data sanitization defenses." arXiv preprint arXiv:1811.00741 (2018).
+<a name="Koh18"></a> Koh, Pang Wei, Jacob Steinhardt, and Percy Liang. "Stronger data poisoning attacks break data sanitization defenses." arXiv preprint arXiv:1811.00741 (2018).
 
-[4] Chen, Bryant, et al. "Detecting backdoor attacks on deep neural networks by activation clustering." arXiv preprint arXiv:1811.03728 (2018).
+<a name="Chen18"></a> Chen, Bryant, et al. "Detecting backdoor attacks on deep neural networks by activation clustering." arXiv preprint arXiv:1811.03728 (2018).
 
-[5] Tran, Brandon, Jerry Li, and Aleksander Madry. "Spectral signatures in backdoor attacks." Advances in Neural Information Processing Systems. 2018.
+<a name="Tran18"></a> Tran, Brandon, Jerry Li, and Aleksander Madry. "Spectral signatures in backdoor attacks." Advances in Neural Information Processing Systems. 2018.
 
-[6] Wang, Bolun, et al. "Neural cleanse: Identifying and mitigating backdoor attacks in neural networks." 2019 IEEE Symposium on Security and Privacy (SP). IEEE, 2019.
+<a name="Wang19"></a> Wang, Bolun, et al. "Neural cleanse: Identifying and mitigating backdoor attacks in neural networks." 2019 IEEE Symposium on Security and Privacy (SP). IEEE, 2019.
 
-[7] Papernot, Nicolas, et al. "Practical black-box attacks against machine learning." Proceedings of the 2017 ACM on Asia conference on computer and communications security. 2017.
+<a name="Papernot17"></a> Papernot, Nicolas, et al. "Practical black-box attacks against machine learning." Proceedings of the 2017 ACM on Asia conference on computer and communications security. 2017.
 
-[8] Athalye, Anish, Nicholas Carlini, and David Wagner. "Obfuscated gradients give a false sense of security: Circumventing defenses to adversarial examples." arXiv preprint arXiv:1802.00420 (2018).
+<a name="Athalye18"></a> Athalye, Anish, Nicholas Carlini, and David Wagner. "Obfuscated gradients give a false sense of security: Circumventing defenses to adversarial examples." arXiv preprint arXiv:1802.00420 (2018).
