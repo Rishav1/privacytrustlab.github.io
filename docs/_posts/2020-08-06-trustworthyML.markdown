@@ -10,6 +10,29 @@ excerpt: ...
 ---
 The key to building trustworthy AI systems is ensuring that they are robust, fair, interpretable, and can maintain the privacy and confidentiality of sensitive data. AI governance frameworks emphasize on these aspects of AI in the assessment lists for ethical and trustworthy AI. Our research focuses on  understanding the trade-offs between different requirements for trust in practical machine learning systems. Especially on quantifying the privacy threats to sensitive data in data processing systems.
 
+## Data privacy and confidentiality
+
+One important aspect of building trustworthy AI systems is ensuring that they are can maintain the privacy and confidentiality of sensitive data. When we perform any computation on a sensitive dataset (e.g. calculating statistics or training machine learning models), it is important to understand the privacy risk of that computation to the individuals in the dataset. An obvious direct privacy risk is the exposure of sensitive data *during* the computation. Do we trust the party that is running the computation on sensitive data? A more subtle privacy threat is the indirect leakage about data *through the output* of computation. Do we trust the party that is observing the output of the computation? The former is generally referred to as protecting confidentiality in computation and the latter as privacy preserving computation.
+
+### Confidential computation
+
+The objective of confidential computing is to evaluate a function on private dataset, without exposing the input data, beyond what is revealed by the output of the computation. This problem is broadly referred to as secure function evaluation (SFE) and depending on the setting, there are two primary ways to handle it. If a single participant wants to outsource computation on sensitive data, without revealing the data, then Homomorphic Encryption (HE) can be used. Whereas, if there are multiple participants and a function needs to be jointly evaluated, then Secure MultiParty Computation (MPC) can be used to evaluate the function, while also ensuring that no party learns about anyone else's dataset.
+
+Homomorphic Encryption (HE) is an encryption scheme that allows computation over encrypted data directly, without the explicit requirement to decrypt it before performing the computation. Fully homomorphic encryption can be used to evaluate any arbitrary function of any depth [1]. A Secure MultiParty Computation (MPC) protocol ensures that no participant in the protocol learns more than what they could have learned in the presence of a trusted third-party to perform the computation [2]. Yao's Garbled Circuit (GC) [3] is one of the first protocols that allowed MPC and forms the foundation of many different MPC protocols today. It allows two parties to securely compute a function that has been converted into a boolean circuit. Although theoretical results about the existence of secure MPC protocols for performing any distributed computational task were provided long ago [4,5], it is still a challenging problem to design protocols that have practical communication, memory, and computational costs.
+
+In the case of machine learning, designing model architectures that are generic enough to perform well over existing datasets, while at the same time reducing the computational cost of SFE is a tricky task. We work towards understanding the trade-off and an optimal compromise between the accuracy a model architecture can achieve and its computational performance in an SFE setting. This involves designing techniques such as (but not limited to) replacing computationally expensive operations in SFE with their efficient approximations, devising alternative computation strategies which perform the same operations but utilize sub-operations that are more efficient, and reducing data processing precision by quantizing values.
+
+### References
+
+[1] C. Gentry. A fully homomorphic encryption scheme. AAI3382729, Advisor: D. Boneh, PhD thesis, Stanford, CA, USA, 2009.
+
+[2]  D. Evans, V. Kolesnikov, and M. Rosulek. A pragmatic introduction to secure multi-party computation. Foundations and Trends in Privacy and Security, vol. 2, no. 2-3, pp. 70–246, 2018.
+
+[3] A. C. Yao. How to generate and exchange secrets. In 27th Annual Symposium on Foundations of Computer Science (SCFS 1986), Oct. 1986, pp. 162–167.
+
+[4] O. Goldreich, S. Micali and A. Wigderson. How to Play any Mental Game { A Completeness Theorem for Protocols with Honest Majority. In the 19th STOC, pages 218{229, 1987. Details in Foundations of Cryptography: Volume 2 { Basic Applications (Cambridge University Press 2004), by Oded Goldreich.
+
+[5] R. Canetti, Y. Lindell, R. Ostrovsky and A. Sahai. Universally Composable Two-Party and Multi-Party Computation. In the 34th STOC, pages 494{503, 2002. Full version available at http://eprint.iacr.org/2002/140.
 
 ## Fairness
 
@@ -61,7 +84,7 @@ Hence, an important research direction in FairML is to study the accuracy, robus
 
 <a name="Zafar17"></a> Muhammad Bilal Zafar, Isabel Valera, Manuel Gomez Rodriguez, and Krishna P Gummadi. Fairness beyond disparate treatment & disparate impact: Learning classification without disparate mistreatment. In Proceedings of the 26th international conference on world wide web, pages 1171–1180, 2017.
 
-<a name="Corbett-Davies17"></a> [12] Sam Corbett-Davies, Emma Pierson, Avi Feller, Sharad Goel, and Aziz Huq. Algorithmic decision making and the cost of fairness. In Proceedings of the 23rd ACMSIGKDD International Conference on Knowledge Discovery and Data Mining, pages 797–806, 2017.
+<a name="Corbett-Davies17"></a> Sam Corbett-Davies, Emma Pierson, Avi Feller, Sharad Goel, and Aziz Huq. Algorithmic decision making and the cost of fairness. In Proceedings of the 23rd ACMSIGKDD International Conference on Knowledge Discovery and Data Mining, pages 797–806, 2017.
 
 <a name="Kleinberg16"></a> Jon M. Kleinberg, Sendhil Mullainathan, and Manish Raghavan. Inherent trade-offs in the fair determination of risk scores. arXiv preprint arXiv:1609.05807, 2016.
 

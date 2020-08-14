@@ -11,28 +11,6 @@ excerpt: ...
 ## Data privacy and confidentiality
 
 When we perform any computation on a sensitive dataset (e.g. calculating statistics or training machine learning models), it is important to understand the privacy risk of that computation to the individuals in the dataset. An obvious direct privacy risk is the exposure of sensitive data *during* the computation. A more subtle privacy threat is the indirect leakage about data *through the output* of computation. The former is generally referred to as protecting confidentiality in computation and the latter as privacy preserving computation.
-Confidential computation
-
-The objective of confidential computing is to evaluate a function on private datasets of two or more parties, while also ensuring that no party learns about anyone else's dataset, beyond what is revealed by the output of the computation. This problem is broadly referred to as secure function evaluation (SFE) and the two primary ways to handle it are Homomorphic Encryption (HE) and  Secure MultiParty Computation (MPC).
-
-Homomorphic Encryption (HE) is an encryption scheme that allows computation over encrypted data directly, without the explicit requirement to decrypt it before performing the computation. Fully homomorphic encryption can be used to evaluate any arbitrary function of any depth [1]. A Secure MultiParty Computation (MPC) protocol ensures that no participant in the protocol learns more than what they could have learned in the presence of a trusted third-party to perform the computation [2]. Yao's Garbled Circuit (GC) [3] is one of the first protocols that allowed MPC and forms the foundation of many different MPC protocols today. It allows two parties to securely compute a function that has been converted into a boolean circuit. Although theoretical results about the existence of secure MPC protocols for performing any distributed computational task were provided long ago [4,5], it is still a challenging problem to design protocols that have practical communication, memory, and computational costs.
-
-In the case of machine learning, designing model architectures that are generic enough to perform well over existing datasets, while at the same time reducing the computational cost of SFE is a tricky task. Two primary approaches to tackle this are: 1) Replacing some operations which are computationally expensive in an SFE environment with their approximations, which are more efficient; or devising alternative computation strategies which perform the same operations but utilize sub-operations that are more efficient in the SFE setting. 2) Reducing data processing precision by quantizing values instead of processing them in full-precision, thereby reducing the computation cost [6]. However, both approaches may come at a cost of accuracy due to the approximations used for reducing computational load for SFE. We work towards understanding the trade-off and an optimal compromise between the accuracy of a model architecture and its computational performance in an SFE setting.
-
-
-### References
-
-[1] C. Gentry. A fully homomorphic encryption scheme. AAI3382729, Advisor: D. Boneh, PhD thesis, Stanford, CA, USA, 2009.
-
-[2]  D. Evans, V. Kolesnikov, and M. Rosulek. A pragmatic introduction to secure multi-party computation. Foundations and Trends in Privacy and Security, vol. 2, no. 2-3, pp. 70–246, 2018.
-
-[3] A. C. Yao. How to generate and exchange secrets. In 27th Annual Symposium on Foundations of Computer Science (SCFS 1986), Oct. 1986, pp. 162–167.
-
-[4] O. Goldreich, S. Micali and A. Wigderson. How to Play any Mental Game { A Completeness Theorem for Protocols with Honest Majority. In the 19th STOC, pages 218{229, 1987. Details in Foundations of Cryptography: Volume 2 { Basic Applications (Cambridge University Press 2004), by Oded Goldreich.
-
-[5] R. Canetti, Y. Lindell, R. Ostrovsky and A. Sahai. Universally Composable Two-Party and Multi-Party Computation. In the 34th STOC, pages 494{503, 2002. Full version available at http://eprint.iacr.org/2002/140.
-
-[6] M. S. Riazi, M. Samragh, H. Chen, K. Laine, K. Lauter, and F. Koushanfar. XONN: XNOR-based Oblivious Deep Neural Network Inference. In 28th USENIX Security Symposium (USENIX Security 19)
 
 ## Privacy preserving computation
 
