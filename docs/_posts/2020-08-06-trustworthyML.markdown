@@ -8,11 +8,11 @@ tags: main
 author: <a href='https://www.linkedin.com/in/sasi-kumar-murakonda/'>Sasi Kumar Murakonda</a> and <a href='https://www.comp.nus.edu.sg/~mstrobel/'>Martin Strobel</a>
 excerpt: ...
 ---
-The key to building trustworthy AI systems is ensuring that they are robust, fair, interpretable, and can maintain the privacy and confidentiality of sensitive data. AI governance frameworks emphasize on these aspects of AI in the assessment lists for ethical and trustworthy AI. Our research focuses on  understanding the trade-offs between different requirements for trust in practical machine learning systems. Especially on quantifying the privacy threats to sensitive data in data processing systems.
+The key to building trustworthy AI systems is ensuring that they are robust, fair, interpretable, and can maintain the privacy and confidentiality of sensitive data. AI governance frameworks emphasize on these aspects of AI in the assessment lists for ethical and trustworthy AI. Our research focuses on understanding the trade-offs between different requirements for trust in practical machine learning systems. And especially on quantifying the privacy threats to sensitive data in data processing systems.
 
 ## Data privacy and confidentiality
 
-One important aspect of building trustworthy AI systems is ensuring that they are can maintain the privacy and confidentiality of sensitive data. When we perform any computation on a sensitive dataset (e.g. calculating statistics or training machine learning models), it is important to understand the privacy risk of that computation to the individuals in the dataset. An obvious direct privacy risk is the exposure of sensitive data *during* the computation. Do we trust the party that is running the computation on sensitive data? A more subtle privacy threat is the indirect leakage about data *through the output* of computation. Do we trust the party that is observing the output of the computation? The former is generally referred to as protecting confidentiality in computation and the latter as privacy preserving computation.
+When building machine learning models using sensitive data, organizations should ensure that the data processed in such systems is adequately protected. For projects involving machine learning on personal data, it is mandatory from Article 35 of the GDPR to perform a Data Protection Impact Assessment (DPIA). An obvious direct privacy risk is the exposure of sensitive data *during* the computation. Can we trust the party that is running the computation on sensitive data? A more subtle privacy threat is the indirect leakage about data *through the output* of computation. Can we trust the party that is observing the output of the computation? The former is generally referred to as protecting confidentiality in computation and the latter as privacy preserving computation.
 
 ### Confidential computation
 
@@ -34,35 +34,92 @@ In the case of machine learning, designing model architectures that are generic 
 
 [5] R. Canetti, Y. Lindell, R. Ostrovsky and A. Sahai. Universally Composable Two-Party and Multi-Party Computation. In the 34th STOC, pages 494{503, 2002. Full version available at http://eprint.iacr.org/2002/140.
 
+## Data Privacy in Machine Learning
+
+When we perform any computation on a sensitive dataset (e.g. calculating statistics or training machine learning models), it is important to understand the privacy risk of that computation to the individuals in the dataset. Machine learning models pose a subtle privacy risk to the data by indirectly revealing about it through the model predictions and parameters. Guidances released by the Information Commissioner’s Office (UK) and the National Institute of Standards and Technology (US) emphasize on the threats to data from models and recommend organizations to account for and estimate these risks to comply with data protection regulations.
+
+How do we define and quantify this privacy risk from machine learning models to the individuals whose data is used for training the model? To do so, we need to distinguish two types of information that we can learn from the model: 1) Information that is generic to members of the population and 2) Information that is specific to members in the training set. Note that members of the training set are also members of the population. Any information that the model reveals about particular members in the training data beyond what it reveals about an arbitrary member of the population is a privacy threat to the training data. A key focus of our research is designing inference attacks to quantify this privacy loss.
+
+Inference attacks on machine learning algorithms fall into two fundamental and related categories: tracing (a.k.a. membership  inference) attacks, and reconstruction attacks [1].  In a  reconstruction attack, the attacker’s objective is to infer attributes of the records in the training set [2,3]. In a membership inference attack, however, the attacker’s objective is to infer if a particular individual data record was included in the training dataset [4,5,6,7,8]. Accuracy of inference attacks can be used as metrics to quantify leakage from machine learning models, and also to measure the effectiveness of privacy protection techniques.
+ 
+Differential Privacy [9] is a cryptographic notion of privacy, wherein the outputs of a computation should be indistinguishable when any single record in the data is modified. If the training process is differentially private [10,11], the probability of producing a given model from a training dataset that includes a particular record is close to the probability of producing the same model when this record is not included. Differentially private models are, by construction, secure against inference attacks that operate solely on the outputs of the model, without any auxiliary information. One obstacle is that differentially private models may significantly reduce the model’s prediction accuracy for small values of epsilon, that guarantee greater levels of privacy.
+
+Our tool ML Privacy Meter quantifies the privacy risk to data from models through state of the art membership inference attack techniques. It can help in selecting appropriate values for epsilon of differential privacy, by providing practical estimates of the privacy risk posed at different values of epsilon. The tool can also guide practitioners in regulatory compliance by helping them analyze, identify, and minimize the threats to data, when deploying machine learning models [12].
+
+### References
+
+[1] Dwork, Cynthia, Adam Smith, Thomas Steinke, and Jonathan Ullman. "Exposed! a survey of attacks on private data." (2017).
+
+[2] Dinur, Irit, and Kobbi Nissim. "Revealing information while preserving privacy." Proceedings of the twenty-second ACM SIGMOD-SIGACT-SIGART symposium on Principles of database systems. 2003.
+
+[3] Wang, Rui, Yong Fuga Li, XiaoFeng Wang, Haixu Tang, and Xiaoyong Zhou. "Learning your identity and disease from research papers: information leaks in genome wide association study." In Proceedings of the 16th ACM conference on Computer and communications security, pp. 534-544. 2009.
+
+[4] Homer, Nils, et al. "Resolving individuals contributing trace amounts of DNA to highly complex mixtures using high-density SNP genotyping microarrays." PLoS Genet 4.8 (2008): e1000167.
+
+[5] Sankararaman, Sriram, Guillaume Obozinski, Michael I. Jordan, and Eran Halperin. "Genomic privacy and limits of individual detection in a pool." Nature genetics 41, no. 9 (2009): 965-967.
+
+[6] Dwork, Cynthia, Adam Smith, Thomas Steinke, Jonathan Ullman, and Salil Vadhan. "Robust traceability from trace amounts." In 2015 IEEE 56th Annual Symposium on Foundations of Computer Science, pp. 650-669. IEEE, 2015.
+
+[7] Shokri, Reza, et al. "Membership inference attacks against machine learning models." 2017 IEEE Symposium on Security and Privacy (SP). IEEE, 2017.
+
+[8] Nasr, Milad, Reza Shokri, and Amir Houmansadr. "Comprehensive privacy analysis of deep learning: Passive and active white-box inference attacks against centralized and federated learning." 2019 IEEE Symposium on Security and Privacy (SP). IEEE, 2019.
+
+[9] Dwork, Cynthia, et al. "Calibrating noise to sensitivity in private data analysis." Theory of cryptography conference. Springer, Berlin, Heidelberg, 2006.
+
+[10] Shokri, Reza, and Vitaly Shmatikov. "Privacy-preserving deep learning." Proceedings of the 22nd ACM SIGSAC conference on computer and communications security. 2015.
+
+[11] Abadi, Martin, et al. "Deep learning with differential privacy." Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security. 2016.
+
+[12] Murakonda, Sasi Kumar, and Reza Shokri. "ML Privacy Meter: Aiding Regulatory Compliance by Quantifying the Privacy Risks of Machine Learning." arXiv preprint arXiv:2007.09339 (2020).
+
+## Robustness
+
+Can we trust a machine learning model to make critical decisions that can affect individuals socio-economic status? Are the predictions of these models reliable? The predictive behavior of machine learning models can be maliciously modified by slightly perturbing the distribution of training and/or test data. Models that achieve high accuracy on clean data can be made to learn significantly different decision boundaries with the injection of a small amount of poisoned data [[Steinhardt et al., 2017](#Steinhardt17)]. Test data can be slightly perturbed to create adversarial examples, which look similar to the original data, but can make the model mis-classify them. Understanding these threats against functionality of machine learning models and designing systems that are robust to these attacks is one of the core requirements for building trustworthy AI.
+
+Attackers can corrupt the training data of a machine learning model to achieve different objectives. For example, the attacker might want to degrade the overall test accuracy of the model (called indiscriminate attacks) or increase the loss on specific data points or sub-populations (called targeted attacks). He might even seek to create a backdoor in the learning system to mis-classify the backdoor instances as a target label specified by the attacker (called backdoor attacks). Machine Learning models were shown to be easily susceptible to these attacks, making their usage in safety-critical systems hard. 
+
+To defend against data poisoning attacks, techniques for achieving training time robustness seek to learn a model that minimizes the out-of-training error even if the training dataset is noisy (or poisoned by an attacker). Data sanitization, also known as outlier detection and anomaly detection is a very common type of defense against data poisoning attacks [[Cretu et al., 2008](#Cretu08); [Chen et al., 2018](#Chen18); [Tran et al., 2018](#Tran18)]. As the attacker injects points that are very different from the clean data into the training set, intuitively it was thought that anomaly detectors can filter poisoning data. However, attackers can generate poisoning points that are very similar to the true data distribution but can still successfully mislead the model [[Koh et al., 2017](#Koh18); [Steinhardt et al., 2017](#Steinhardt17)]. A testing-stage defense against backdoor attacks reverses the backdoor trigger from the victim model, and then fixes the model through retraining or pruning [[Wang et al., 2019](#Wang19)]. These defenses do not provide any theoretical guarantees of robustness.
+
+Adversarial training, a commonly used defense against adversarial examples, aims to ensure that the model produces same prediction even if the points generated from actual test distribution are slightly modified. The high-level idea is to generate a lot of adversarial examples and explicitly train the model not to be fooled by each of them. Most of the existing adversarial training based defenses do not provide robustness guarantees and demonstrate the robustness property via empirical results. However, adversarial robustness is difficult to measure and most papers get it wrong to the point that the results are meaningless [[Athalye et al., 2018](#Athalye18)].
+
+Designing provably robust algorithms for training in presence of poisoning data and for mitigating adversarial examples are still open problems.
+
+### References
+
+<a name="Steinhardt17"></a> Steinhardt, Jacob, Pang Wei W. Koh, and Percy S. Liang. "Certified defenses for data poisoning attacks." Advances in neural information processing systems. 2017.
+
+<a name="Cretu08"></a> Cretu, Gabriela F., et al. "Casting out demons: Sanitizing training data for anomaly sensors." 2008 IEEE Symposium on Security and Privacy (sp 2008). IEEE, 2008.
+
+<a name="Koh18"></a> Koh, Pang Wei, Jacob Steinhardt, and Percy Liang. "Stronger data poisoning attacks break data sanitization defenses." arXiv preprint arXiv:1811.00741 (2018).
+
+<a name="Chen18"></a> Chen, Bryant, et al. "Detecting backdoor attacks on deep neural networks by activation clustering." arXiv preprint arXiv:1811.03728 (2018).
+
+<a name="Tran18"></a> Tran, Brandon, Jerry Li, and Aleksander Madry. "Spectral signatures in backdoor attacks." Advances in Neural Information Processing Systems. 2018.
+
+<a name="Wang19"></a> Wang, Bolun, et al. "Neural cleanse: Identifying and mitigating backdoor attacks in neural networks." 2019 IEEE Symposium on Security and Privacy (SP). IEEE, 2019.
+
+<a name="Papernot17"></a> Papernot, Nicolas, et al. "Practical black-box attacks against machine learning." Proceedings of the 2017 ACM on Asia conference on computer and communications security. 2017.
+
+<a name="Athalye18"></a> Athalye, Anish, Nicholas Carlini, and David Wagner. "Obfuscated gradients give a false sense of security: Circumventing defenses to adversarial examples." arXiv preprint arXiv:1802.00420 (2018).
+
 ## Fairness
 
 On May 23rd 2016, the nonprofit news platform ProPublica published an article in which it accused an algorithm used to predict the recidivism risks of criminals in many parts of the U.S to be biased against black defendants [[Angwin et al., 2016](#Angwin16)]. The company behind rebutted the claim an argued that the analysis was faulty. The story nevertheless sparked new interest by the machine learning community into the problem of machine fairness and it is by far not the only example of uncovered bias of (machine learning) algorithms. Some famous examples are the work by [Buolamwini and Gebru, 2018](Buolamwini18) that demonstrated wide disparities in prediction accuracy, depending on skin type and gender, of commercial gender classification systems and the [news stories](https://www.reuters.com/article/us-amazon-com-jobs-automation-insight/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK08G) about Amazon stopping the implementation of an AI recruitment tool after it showed bias against women. Problems with (un)fairness of machine learning algorithms can be found in many different application domains and solving them is an active area of research. 
 
-Formally, training a machine learning model refers to finding a set of parameters that optimize an average loss function computed over training dataset. However, the parameters that minimize an overall loss might have very different outcomes for different subpopulations and it is often the majority, for which the most and the best data is available, that benefits most from these models. 
+Formally, training a machine learning model refers to finding a set of parameters that optimize an average loss function computed over training dataset. However, the parameters that minimize an overall loss might have very different outcomes for different subpopulations and it is often the majority, for which the most and the best data is available, that benefits most from these models. Before one can address unfairness a formal definition of what it means to be fair is needed. In fact many formal definitions with different focus have been proposed.  Some of these metrics focus on equality across sensitive groups [[Calders et al., 2009](#Calders09); [Hardt et al., 2016](#Hardt16)] others focus on the fairness of individuals and are trying to formalize a notion that similar people should be treated similarly [[Dwork et al., 2012](#Dwork12)]. Yet another approach is to establish causality [[Kusner et al., 2017](#Kusner17)] instead of relying on potentially biased correlations in the data. Many techniques are available to achieve group-based fairness such as pre-processing methods [[Madras et al., 2018](#Madras18); [Zemel et al., 2013](#Zemel13)], in-processing methods [[Agarwal et al., 2018](#Agarwal18); [Kamishima et al., 2011](#Kamishima11); [Zafar et al., 2015](#Zafar15); [Zafar et al., 2017](#Zafar17)], and post-processing methods [[Hardt et al., 2016](#Hardt16)].
 
-### Definitions of Fairness
-Be for one can address unfairness a formal definition of what it means to be fair is needed. In fact many formal definitions with different focus have been proposed.  Some of these metrics focus on equality across sensitive groups [[Calders et al., 2009](#Calders09); [Hardt et al., 2016](#Hardt16)] others focus on the fairness of individuals and are trying to formalize a notion that similar people should be treated similarly [[Dwork et al., 2012](#Dwork12)]. Yet another approach is to establish causality [[Kusner et al., 2017](#Kusner17)] instead of relying on potentially biased correlations in the data.
+Towards minimizing discrimination against a group, fair machine learning algorithms strive to equalize the behavior of a model across different groups, by imposing a fairness constraint on models. Imposing fairness constraints might come at a cost of the model’s performance and multiple definitions of fairness might not be even compatible with each other [[Corbett-Davies et al., 2018](#Corbett-Davies17); [Kleinberg et al., 2016](#Kleinberg16)]. It is shown that achieving equal calibration, false positive rate and false negative rate is impossible, if the fraction of positive labeled examples is different across sensitive groups.
 
-### Techniques  to establish Fairness
-Many techniques to satisfy group-based fairness such as pre-processing methods [[Madras et al., 2018](#Madras18); [Zemel et al., 2013](#Zemel13)], in-processing methods [[Agarwal et al., 2018](#Agarwal18); [Kamishima et al., 2011](#Kamishima11); [Zafar et al., 2015](#Zafar15); [Zafar et al., 2017](#Zafar17)], and post-processing methods [[Hardt et al., 2016](#Hardt16)].
+In our recent work [[Hongyan et al., 2020](#Hongyan20)], we show that imposing group-fairness constraints on learning algorithms decreases their robustness to poisoning attacks. An attacker that can only control the sampling and labeling process for a fraction of the training data can significantly degrade the test accuracy of the models learned with fairness constraints. We also show that learning with fairness constraints in presence of such adversarial bias results in a classifier that not only has poor test accuracy but is also potentially more discriminatory on test data. In fact, from a practical perspective, such bias can easily and stealthily be perpetrated in many existing systems, as similar to historical discrimination and/or selection bias. While the goal of fairness is to promote the well-being of the protected groups, surprisingly being fair can cause harm in cases where an unconstrained objective would not when the data changes over time [Liu et al., 2019](#Liu19).
 
-### Challenges when establishing Fairness
-Towards minimizing discrimination against a group, fair machine learning algorithms strive to equalize the behavior of a model across different groups, by imposing a fairness constraint on models. Imposing fairness constraints might come at a cost of the model’s performance. The effect of fair classification on accuracy and the compatibility of various definitions with each other have been studied in recent work [[Corbett-Davies et al., 2018](#Corbett-Davies17); [Kleinberg et al., 2016](#Kleinberg16)]. It is shown that achieving equal calibration, false positive rate and false negative rate is impossible, if the fraction of positive labeled examples is different across sensitive groups.
-
-In our recent work [[Hongyan et al., 2020](#Hongyan20)], we show that imposing group-fairness constraints on learning algorithms decreases their robustness to poisoning attacks. We specifically provide evidence that an attacker that can only control the sampling and labeling process for a fraction of the training data can significantly degrade the test accuracy of the models learned with fairness constraints. We also show that learning with fairness constraints in presence of such adversarial bias results in a classifier that not only has poor test accuracy but is also potentially more discriminatory on test data. In fact, from a practical perspective, such bias can easily and stealthily be perpetrated in many existing systems, as similar to historical discrimination and/or selection bias.
-In a recent development, the research community has also started to pay attention to the temporal impact of fair models. While the goal of fairness is to promote the well-being of the protected groups, [Liu et al., 2019](#Liu19) show that being fair can cause harm in cases where an unconstrained objective would not when the data changes over time.
-
-Hence, an important research direction in FairML is to study the accuracy, robustness guarantees of fair machine learning algorithms, the potential consequences of using such algorithms in presence of adversarially biased data, and how their behavior changes over time.  Another interesting and crucial challenge is to design fair learning algorithms that are also robust to poisoning attacks.
+Hence, an important research direction in FairML is to study the accuracy, robustness guarantees of fair machine learning algorithms, the potential consequences of using such algorithms in presence of adversarially biased data, and how their behavior changes over time. Another interesting and crucial challenge is to design fair learning algorithms that are also robust to poisoning attacks.
 
 
 ### References 
 
-
-
 <a name="Angwin16"></a> Angwin, Julia, et al. "Machine bias." ProPublica, May 23 (2016): 2016.
 
 <a name="Buolamwini18"></a> Buolamwini, Joy, and Timnit Gebru. "Gender shades: Intersectional accuracy disparities in commercial gender classification." Conference on fairness, accountability and transparency. 2018.
-
 
 <a name="Calders09"></a> Toon Calders, Faisal Kamiran, and Mykola Pechenizkiy. Building classifiers with independency constraints. In 2009 IEEE International Conference on Data Mining Workshops, pages 13–18. IEEE, 2009. 
 
@@ -123,32 +180,4 @@ The exploration of interactions between interpretability and other aspects of ma
 
 <a name="Slack20"></a> Slack, Dylan, et al. "Fooling lime and shap: Adversarial attacks on post hoc explanation methods." Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society. 2020.
 
-## Robustness
-A common assumption in machine learning is that the training data and the test data follow the same distribution. However, this assumption can be violated in practice, say due to injection of poisoning data into the training set by an attacker or due to corruption of test data (adversarial examples). Understanding these threats against functionality of machine learning models and designing systems that are robust to the attacks is one of the core requirements for building trustworthy AI.
 
-Machine learning systems are susceptible to data poisoning attacks. Models that achieve high accuracy on clean data can be made to learn significantly different decision boundaries with the injection of a small amount of poisoned data [[Steinhardt et al., 2017](#Steinhardt17)]. In indiscriminate attacks, the attacker's objective is to degrade the test accuracy of the model. In targeted attacks, the attacker seeks to impose the loss on specific test data points or small sub-populations. In backdoor attacks, the attacker aims at creating backdoor instances so that the victim learning system will be misled to classify the backdoor instances as a target label specified by the attacker. Instead of attacking the training process, in case of adversarial examples, the attacker modifies test inputs to look similar to clean test examples but can make the model mis-predict them.  
-
-Training time robustness aims to learn a model that minimizes the out-of-training (??) error even if the training dataset is noisy (or poisoned by an attacker). Data sanitization, also known as outlier detection and anomaly detection is a very common type of defense [[Cretu et al., 2008](#Cretu08); [Chen et al., 2018](#Chen18); [Tran et al., 2018](#Tran18)]. In poisoning attacks, the attacker is by definition injecting something into the training dataset that is very different from what it should include. Hence, we can use anomaly detectors to filter out training points that look suspicious. However, it has been shown that poisoning attacks can bypass sanitization defenses [[Koh et al., 2017](#Koh18)].. The attacker can generate poisoning points that are very similar to the true data distribution but that still successfully mislead the model. In addition, data sanitization defense can also break down when sanitization rules are created based on the poisoning dataset [[Steinhardt et al., 2017](#Steinhardt17)]. Testing-stage defense against backdoor attacks reverses a backdoor trigger from the victim model, and then fixes the model through retraining or pruning [[Wang et al., 2019](#Wang19)].. However, these defenses do not provide any theoretical guarantees of robustness.
-
-The objective of test time robustness is to ensure that the model produces the same prediction for points generated from the actual test distribution, even if the points are slightly modified. Adversarial training is commonly used as a defense method against adversarial examples. The high-level idea is to generate a lot of adversarial examples and explicitly train the model not to be fooled by each of them. Most of the existing adversarial training based defenses do not provide robustness guarantees and demonstrate the robustness property via empirical results. However, as shown in [[Athalye et al., 2018](#Athalye18)], adversarial robustness is difficult to measure and most papers get it wrong enough that the results are meaningless.
-
-In conclusion, designing provably robust algorithms for training in presence of poisoning data and for mitigating adversarial examples are still open problems.
-
-
-### References
-
-<a name="Steinhardt17"></a> Steinhardt, Jacob, Pang Wei W. Koh, and Percy S. Liang. "Certified defenses for data poisoning attacks." Advances in neural information processing systems. 2017.
-
-<a name="Cretu08"></a> Cretu, Gabriela F., et al. "Casting out demons: Sanitizing training data for anomaly sensors." 2008 IEEE Symposium on Security and Privacy (sp 2008). IEEE, 2008.
-
-<a name="Koh18"></a> Koh, Pang Wei, Jacob Steinhardt, and Percy Liang. "Stronger data poisoning attacks break data sanitization defenses." arXiv preprint arXiv:1811.00741 (2018).
-
-<a name="Chen18"></a> Chen, Bryant, et al. "Detecting backdoor attacks on deep neural networks by activation clustering." arXiv preprint arXiv:1811.03728 (2018).
-
-<a name="Tran18"></a> Tran, Brandon, Jerry Li, and Aleksander Madry. "Spectral signatures in backdoor attacks." Advances in Neural Information Processing Systems. 2018.
-
-<a name="Wang19"></a> Wang, Bolun, et al. "Neural cleanse: Identifying and mitigating backdoor attacks in neural networks." 2019 IEEE Symposium on Security and Privacy (SP). IEEE, 2019.
-
-<a name="Papernot17"></a> Papernot, Nicolas, et al. "Practical black-box attacks against machine learning." Proceedings of the 2017 ACM on Asia conference on computer and communications security. 2017.
-
-<a name="Athalye18"></a> Athalye, Anish, Nicholas Carlini, and David Wagner. "Obfuscated gradients give a false sense of security: Circumventing defenses to adversarial examples." arXiv preprint arXiv:1802.00420 (2018).
