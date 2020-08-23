@@ -18,21 +18,21 @@ When building machine learning models using sensitive data, organizations should
 
 The objective of confidential computing is to evaluate a function on private dataset, without exposing the input data, beyond what is revealed by the output of the computation. This problem is broadly referred to as secure function evaluation (SFE) and depending on the setting, there are two primary ways to handle it. If a single participant wants to outsource computation on sensitive data, without revealing the data, then Homomorphic Encryption (HE) can be used. Whereas, if there are multiple participants and a function needs to be jointly evaluated, then Secure MultiParty Computation (MPC) can be used to evaluate the function, while also ensuring that no party learns about anyone else's dataset.
 
-Homomorphic Encryption (HE) is an encryption scheme that allows computation over encrypted data directly, without the explicit requirement to decrypt it before performing the computation. Fully homomorphic encryption can be used to evaluate any arbitrary function of any depth [1]. A Secure MultiParty Computation (MPC) protocol ensures that no participant in the protocol learns more than what they could have learned in the presence of a trusted third-party to perform the computation [2]. Yao's Garbled Circuit (GC) [3] is one of the first protocols that allowed MPC and forms the foundation of many different MPC protocols today. It allows two parties to securely compute a function that has been converted into a boolean circuit. Although theoretical results about the existence of secure MPC protocols for performing any distributed computational task were provided long ago [4,5], it is still a challenging problem to design protocols that have practical communication, memory, and computational costs.
+Homomorphic Encryption (HE) is an encryption scheme that allows computation over encrypted data directly, without the explicit requirement to decrypt it before performing the computation. Fully homomorphic encryption can be used to evaluate any arbitrary function of any depth [[Gentry, 2008](#Gentry09)]. A Secure MultiParty Computation (MPC) protocol ensures that no participant in the protocol learns more than what they could have learned in the presence of a trusted third-party to perform the computation [[Evans et al., 2018](#Evans18)]. [[Yao, 1986](#Yao86)]'s Garbled Circuit (GC) is one of the first protocols that allowed MPC and forms the foundation of many different MPC protocols today. It allows two parties to securely compute a function that has been converted into a boolean circuit. Although theoretical results about the existence of secure MPC protocols for performing any distributed computational task were provided long ago [[Goldreich et al., 2004](#Goldreich04); [Canetti et al., 2018](#Canetti02)], it is still a challenging problem to design protocols that have practical communication, memory, and computational costs.
 
 In the case of machine learning, designing model architectures that are generic enough to perform well over existing datasets, while at the same time reducing the computational cost of SFE is a tricky task. We work towards understanding the trade-off and an optimal compromise between the accuracy a model architecture can achieve and its computational performance in an SFE setting. This involves designing techniques such as (but not limited to) replacing computationally expensive operations in SFE with their efficient approximations, devising alternative computation strategies which perform the same operations but utilize sub-operations that are more efficient, and reducing data processing precision by quantizing values.
 
 ### References
 
-[1] C. Gentry. A fully homomorphic encryption scheme. AAI3382729, Advisor: D. Boneh, PhD thesis, Stanford, CA, USA, 2009.
+<a name="Gentry09"></a> C. Gentry. A fully homomorphic encryption scheme. AAI3382729, Advisor: D. Boneh, PhD thesis, Stanford, CA, USA, 2009.
 
-[2]  D. Evans, V. Kolesnikov, and M. Rosulek. A pragmatic introduction to secure multi-party computation. Foundations and Trends in Privacy and Security, vol. 2, no. 2-3, pp. 70–246, 2018.
+<a name="Evans18"></a> D. Evans, V. Kolesnikov, and M. Rosulek. A pragmatic introduction to secure multi-party computation. Foundations and Trends in Privacy and Security, vol. 2, no. 2-3, pp. 70–246, 2018.
 
-[3] A. C. Yao. How to generate and exchange secrets. In 27th Annual Symposium on Foundations of Computer Science (SCFS 1986), Oct. 1986, pp. 162–167.
+<a name="Yao86"></a> A. C. Yao. How to generate and exchange secrets. In 27th Annual Symposium on Foundations of Computer Science (SCFS 1986), Oct. 1986, pp. 162–167.
 
-[4] O. Goldreich, S. Micali and A. Wigderson. How to Play any Mental Game { A Completeness Theorem for Protocols with Honest Majority. In the 19th STOC, pages 218{229, 1987. Details in Foundations of Cryptography: Volume 2 { Basic Applications (Cambridge University Press 2004), by Oded Goldreich.
+<a name="Goldreich04"></a> O. Goldreich, S. Micali and A. Wigderson. How to Play any Mental Game { A Completeness Theorem for Protocols with Honest Majority. In the 19th STOC, pages 218{229, 1987. Details in Foundations of Cryptography: Volume 2 { Basic Applications (Cambridge University Press 2004), by Oded Goldreich.
 
-[5] R. Canetti, Y. Lindell, R. Ostrovsky and A. Sahai. Universally Composable Two-Party and Multi-Party Computation. In the 34th STOC, pages 494{503, 2002. Full version available at http://eprint.iacr.org/2002/140.
+<a name="Canetti02"></a> R. Canetti, Y. Lindell, R. Ostrovsky and A. Sahai. Universally Composable Two-Party and Multi-Party Computation. In the 34th STOC, pages 494{503, 2002. Full version available at http://eprint.iacr.org/2002/140.
 
 ## Data Privacy in Machine Learning
 
@@ -40,37 +40,37 @@ When we perform any computation on a sensitive dataset (e.g. calculating statist
 
 How do we define and quantify this privacy risk from machine learning models to the individuals whose data is used for training the model? To do so, we need to distinguish two types of information that we can learn from the model: 1) Information that is generic to members of the population and 2) Information that is specific to members in the training set. Note that members of the training set are also members of the population. Any information that the model reveals about particular members in the training data beyond what it reveals about an arbitrary member of the population is a privacy threat to the training data. A key focus of our research is designing inference attacks to quantify this privacy loss.
 
-Inference attacks on machine learning algorithms fall into two fundamental and related categories: tracing (a.k.a. membership  inference) attacks, and reconstruction attacks [1].  In a  reconstruction attack, the attacker’s objective is to infer attributes of the records in the training set [2,3]. In a membership inference attack, however, the attacker’s objective is to infer if a particular individual data record was included in the training dataset [4,5,6,7,8]. Accuracy of inference attacks can be used as metrics to quantify leakage from machine learning models, and also to measure the effectiveness of privacy protection techniques.
+Inference attacks on machine learning algorithms fall into two fundamental and related categories: tracing (a.k.a. membership  inference) attacks, and reconstruction attacks [[Dwork et al., 2017](#Dwork17)].  In a  reconstruction attack, the attacker’s objective is to infer attributes of the records in the training set [[Dinur et al., 2003](#Dinur03); [Wang et al., 2009](#Wang09)]. In a membership inference attack, however, the attacker’s objective is to infer if a particular individual data record was included in the training dataset [[Homer et al., 2008](#Homer08); [Sankararaman et al., 2009](#Sankararaman09); [Dwork et al., 2015](#Dwork15); [Shokri et al., 2017](#Shokri17); [Nasr19 et al., 2019](#Nasr19)]. Accuracy of inference attacks can be used as metrics to quantify leakage from machine learning models, and also to measure the effectiveness of privacy protection techniques.
  
-Differential Privacy [9] is a cryptographic notion of privacy, wherein the outputs of a computation should be indistinguishable when any single record in the data is modified. If the training process is differentially private [10,11], the probability of producing a given model from a training dataset that includes a particular record is close to the probability of producing the same model when this record is not included. Differentially private models are, by construction, secure against inference attacks that operate solely on the outputs of the model, without any auxiliary information. One obstacle is that differentially private models may significantly reduce the model’s prediction accuracy for small values of epsilon, that guarantee greater levels of privacy.
+Differential Privacy [[Dwork et al., 2006](#Dwork06)] is a cryptographic notion of privacy, wherein the outputs of a computation should be indistinguishable when any single record in the data is modified. If the training process is differentially private [[Shokri et al., 2015](#Shokri15); [Abadi et al., 2016](#Abadi16)], the probability of producing a given model from a training dataset that includes a particular record is close to the probability of producing the same model when this record is not included. Differentially private models are, by construction, secure against inference attacks that operate solely on the outputs of the model, without any auxiliary information. One obstacle is that differentially private models may significantly reduce the model’s prediction accuracy for small values of epsilon, that guarantee greater levels of privacy.
 
-Our tool ML Privacy Meter quantifies the privacy risk to data from models through state of the art membership inference attack techniques. It can help in selecting appropriate values for epsilon of differential privacy, by providing practical estimates of the privacy risk posed at different values of epsilon. The tool can also guide practitioners in regulatory compliance by helping them analyze, identify, and minimize the threats to data, when deploying machine learning models [12].
+Our tool ML Privacy Meter quantifies the privacy risk to data from models through state of the art membership inference attack techniques. It can help in selecting appropriate values for epsilon of differential privacy, by providing practical estimates of the privacy risk posed at different values of epsilon. The tool can also guide practitioners in regulatory compliance by helping them analyze, identify, and minimize the threats to data, when deploying machine learning models [[Murakonda et al., 2020](#Murakonda20)].
 
 ### References
 
-[1] Dwork, Cynthia, Adam Smith, Thomas Steinke, and Jonathan Ullman. "Exposed! a survey of attacks on private data." (2017).
+<a name="Dwork17"></a> Dwork, Cynthia, Adam Smith, Thomas Steinke, and Jonathan Ullman. "Exposed! a survey of attacks on private data." (2017).
 
-[2] Dinur, Irit, and Kobbi Nissim. "Revealing information while preserving privacy." Proceedings of the twenty-second ACM SIGMOD-SIGACT-SIGART symposium on Principles of database systems. 2003.
+<a name="Dinur03"></a> Dinur, Irit, and Kobbi Nissim. "Revealing information while preserving privacy." Proceedings of the twenty-second ACM SIGMOD-SIGACT-SIGART symposium on Principles of database systems. 2003.
 
-[3] Wang, Rui, Yong Fuga Li, XiaoFeng Wang, Haixu Tang, and Xiaoyong Zhou. "Learning your identity and disease from research papers: information leaks in genome wide association study." In Proceedings of the 16th ACM conference on Computer and communications security, pp. 534-544. 2009.
+<a name="Wang09"></a> Wang, Rui, Yong Fuga Li, XiaoFeng Wang, Haixu Tang, and Xiaoyong Zhou. "Learning your identity and disease from research papers: information leaks in genome wide association study." In Proceedings of the 16th ACM conference on Computer and communications security, pp. 534-544. 2009.
 
-[4] Homer, Nils, et al. "Resolving individuals contributing trace amounts of DNA to highly complex mixtures using high-density SNP genotyping microarrays." PLoS Genet 4.8 (2008): e1000167.
+<a name="Homer08"></a> Homer, Nils, et al. "Resolving individuals contributing trace amounts of DNA to highly complex mixtures using high-density SNP genotyping microarrays." PLoS Genet 4.8 (2008): e1000167.
 
-[5] Sankararaman, Sriram, Guillaume Obozinski, Michael I. Jordan, and Eran Halperin. "Genomic privacy and limits of individual detection in a pool." Nature genetics 41, no. 9 (2009): 965-967.
+<a name="Sankararaman09"></a> Sankararaman, Sriram, Guillaume Obozinski, Michael I. Jordan, and Eran Halperin. "Genomic privacy and limits of individual detection in a pool." Nature genetics 41, no. 9 (2009): 965-967.
 
-[6] Dwork, Cynthia, Adam Smith, Thomas Steinke, Jonathan Ullman, and Salil Vadhan. "Robust traceability from trace amounts." In 2015 IEEE 56th Annual Symposium on Foundations of Computer Science, pp. 650-669. IEEE, 2015.
+<a name="Dwork15"></a> Dwork, Cynthia, Adam Smith, Thomas Steinke, Jonathan Ullman, and Salil Vadhan. "Robust traceability from trace amounts." In 2015 IEEE 56th Annual Symposium on Foundations of Computer Science, pp. 650-669. IEEE, 2015.
 
-[7] Shokri, Reza, et al. "Membership inference attacks against machine learning models." 2017 IEEE Symposium on Security and Privacy (SP). IEEE, 2017.
+<a name="Shokri17"></a> Shokri, Reza, et al. "Membership inference attacks against machine learning models." 2017 IEEE Symposium on Security and Privacy (SP). IEEE, 2017.
 
-[8] Nasr, Milad, Reza Shokri, and Amir Houmansadr. "Comprehensive privacy analysis of deep learning: Passive and active white-box inference attacks against centralized and federated learning." 2019 IEEE Symposium on Security and Privacy (SP). IEEE, 2019.
+<a name="Nasr19"></a> Nasr, Milad, Reza Shokri, and Amir Houmansadr. "Comprehensive privacy analysis of deep learning: Passive and active white-box inference attacks against centralized and federated learning." 2019 IEEE Symposium on Security and Privacy (SP). IEEE, 2019.
 
-[9] Dwork, Cynthia, et al. "Calibrating noise to sensitivity in private data analysis." Theory of cryptography conference. Springer, Berlin, Heidelberg, 2006.
+<a name="Dwork06"></a> Dwork, Cynthia, et al. "Calibrating noise to sensitivity in private data analysis." Theory of cryptography conference. Springer, Berlin, Heidelberg, 2006.
 
-[10] Shokri, Reza, and Vitaly Shmatikov. "Privacy-preserving deep learning." Proceedings of the 22nd ACM SIGSAC conference on computer and communications security. 2015.
+<a name="Shokri15"></a> Shokri, Reza, and Vitaly Shmatikov. "Privacy-preserving deep learning." Proceedings of the 22nd ACM SIGSAC conference on computer and communications security. 2015.
 
-[11] Abadi, Martin, et al. "Deep learning with differential privacy." Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security. 2016.
+<a name="Abadi16"></a> Abadi, Martin, et al. "Deep learning with differential privacy." Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security. 2016.
 
-[12] Murakonda, Sasi Kumar, and Reza Shokri. "ML Privacy Meter: Aiding Regulatory Compliance by Quantifying the Privacy Risks of Machine Learning." arXiv preprint arXiv:2007.09339 (2020).
+<a name="Murakonda20"></a> Murakonda, Sasi Kumar, and Reza Shokri. "ML Privacy Meter: Aiding Regulatory Compliance by Quantifying the Privacy Risks of Machine Learning." arXiv preprint arXiv:2007.09339 (2020).
 
 ## Robustness
 
