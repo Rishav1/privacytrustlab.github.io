@@ -15,7 +15,9 @@ When building machine learning models using sensitive data, organizations should
 
 [ML Privacy Meter](https://github.com/privacytrustlab/ml_privacy_meter) is a Python library that enables quantifying the privacy risks of machine learning models. The tool provides privacy risk scores which help in identifying data records among the training data that are under high risk of being leaked through the model. 
 
-![ML Privacy Meter Diagram](images/ml-privacy-meter.png)
+{:refdef: style="text-align: center;"}
+<img src="images/ML Privacy Meter/ml-privacy-meter.png" width="75%">
+{:refdef}
 
 Machine learning models encode information about the datasets on which they are trained. The encoded information is supposed to reflect the general patterns underlying the population data. However, it is commonly observed that these models memorize specific information about some members of their training data [[Song et al., 2017](#Song17)] or be tricked to do so [[Carlini et al., 2019](#Carlini19)]. Models with high generalization gap as well as the models with high capacity (such as deep neural networks) are more susceptible to memorizing data points from their training set. This is reflected in the predictions of the model, which exhibits a different behavior on training data versus test data, and in the model's parameters which store statistically correlated information about specific data points in their training set. This vulnerability of machine learning models was shown using *membership inference attacks*, where an attacker detects the presence of a particular record in the training dataset of a model, just by observing the model. Machine learning models were shown to be susceptible to these attacks in both the black-box [[Shokri et al., 2017](#Shokri17)] and white-box settings [[Nasr19 et al., 2019](#Nasr19)]. The privacy risks of machine learning models can be evaluated as the accuracy of such inference attacks against their training data.  
 
@@ -25,15 +27,22 @@ Guidances released published by the [Information Commissioner’s Office (ICO) f
 
 ML privacy meter can help in DPIA by providing a quantitative assessment of privacy risk of a machine learning model. The tool can generate extensive privacy reports about the aggregate and individual risk for data records in the training set at multiple levels of access to the model. It can estimate the amount of information that can be revealed through the predictions of a model (referred to as Black-box access) and through both the predictions and parameters of a model (referred to as White-box access). Hence, when providing query access to the model or revealing the entire model, the tool can be used to assess the potential threats to training data.
 
-![Privacy Risk Histogram](images/privacy_risk.png)
+{:refdef: style="text-align: center;"}
+<img src="images/ML Privacy Meter/privacy_risk.png" width="75%">
+{:refdef}
 
 ML Privacy Meter works by implementing membership inference attacks against machine learning models. It simulates attackers with different levels of access and knowledge about the model. It considers attackers who can exploit only the predictions of the model, the loss values, and the parameters of the model. For each of the simulated attacks, the tool reports risk scores for all the data records. These scores represent the attacker’s belief that the record was part of the training dataset. The larger the gap between the distribution of these scores for records that are in the training set versus records that are not in the training set, the larger is the leakage from the model would be. 
 
-![ROC Plot](images/roc.png)
+{:refdef: style="text-align: center;"}
+<img src="images/ML Privacy Meter/roc.png" width="75%">
+{:refdef}
 
 Success of the attacker can be quantified by an ROC curve representing the trade-off between False Positive Rate and True Positive Rate of the attacker. True positive represents correctly identifying a member as present in the data and False positive refers to identifying a non-member as member. An attack is successful if it can achieve larger values of True Positive rate at small values of False Positive rate. A trivial attack such as random guess can achieve equal True Positive and False Positive Rates. ML Privacy Meter automatically plots the trade-offs that are achieved by our simulated attackers. The area under those curves quantifies the aggregate privacy risk to the data posed by the model. The higher the area under curve, larger the risk. These numbers not only quantify the success of membership inference attacks, but they can also be seen as a measure of information leakage from the model.
 
-![Privacy Risk - Class 15](images/privacy_risk_label15.png)  ![Privacy Risk - Class 45](images/privacy_risk_label45.png) 
+{:refdef: style="text-align: center;"}
+<img src="/images/ML Privacy Meter/privacy_risk_label15.png" width="45%">
+<img src="images/ML Privacy Meter/privacy_risk_label45.png" width="45%"> 
+{:refdef} 
 
 When deploying machine learning models, this quantification of risk can be useful while performing a Data Protection Impact Assessment. The aim of doing a DPIA is to analyze, identify and minimize the potential threats to data. ML privacy meter can guide practitioners in all the three steps. The tool produces detailed privacy reports for the training data. It allows comparing the risk across records from different classes in the data. It can also compare the risk posed by providing black box access to the model with the risk due to white box access. As the tool can immediately measure the privacy risks for training data, practitioners can take simple actions such as finetuning their regularization techniques, sub-sampling, re-sampling their data, etc., to reduce the privacy risk. Or they can even choose to learn with a privacy protection, such as differential privacy, in place.  
 
