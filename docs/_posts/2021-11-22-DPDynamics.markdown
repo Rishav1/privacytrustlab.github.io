@@ -323,7 +323,7 @@ $$
 
 where $\ptheta$ is the output of the randomized algorithm $\mathcal{A}\_{\text{Noisy-GD}}$ on $\D$, $\ptheta^*$ is the optimal solution to the standard (no privacy) ERM on $\Loss_\D$, and the expectation is computed over the randomness of the algorithm.
 
-We provide the *optimal* excess empirical risk (utility) of noisy GD algorithm under an $(\eps, \delta)-DP constraint. The notion of *optimality* for utility is defined as the smallest upper-bound for excess empirical risk that can be guaranteed under $(\eps, \delta)$-DP constraint by tuning the algorithm's hyperparameters (such as the noise variance $\sig^2$ and the number of iterations $\K$).  
+We provide the *optimal* excess empirical risk (utility) of noisy GD algorithm under an $(\eps, \delta)$-DP constraint. The notion of *optimality* for utility is defined as the smallest upper-bound for excess empirical risk that can be guaranteed under $(\eps, \delta)$-DP constraint by tuning the algorithm's hyperparameters (such as the noise variance $\sig^2$ and the number of iterations $\K$).  
 
 <div class="theorem" id="optimal_empirical_risk"><b>3 (Empirical risk upper bound for $(\eps,\delta)$-DP Noisy GD).</b> 
 For Lipschitz smooth strongly convex loss function $\ell(\theta;\x)$ on a bounded closed convex set $\mathcal{C}\subseteq\thetaspace$, and dataset $\D\in\Domain$ of size $n$, if the step-size $\eta=\frac{\lambda}{2\beta^2}$ and the initial parameter $\theta_0\sim\proj{\C}{\mathcal{N}(0,\frac{2\sig^2}{\lambda} I_d)}$, then the <a href="#goal-noisygd">noisy GD Algorithm</a> is $(\eps,\delta)$-differentially private, and satisfies
