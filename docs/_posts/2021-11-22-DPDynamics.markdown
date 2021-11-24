@@ -302,7 +302,7 @@ Differential privacy guarantees reflect a *bound* on privacy loss on an algorith
 
 It is very challenging to lower bound the exact Rényi privacy loss ${\Ren{\q}{\thet_{\K\step}}{\thet_{\K\step}'}}$ in general. This might require having an explicit expression for the probability distribution over the last-iterate parameters $\ptheta_\kk$. Computing a close-form expression is, however, feasible when the loss gradients are linear.  This is due to the fact that, after a sequence of linear transformations and Gaussian noise additions, the parameters follow a Gaussian distribution. Therefore, we construct such an ERM objective, compute the exact privacy loss, and prove the following lower bound.
 
-<div id="lower_bound" class="theorem"><b>1.</b>
+<div id="lower_bound" class="theorem"><b>2.</b>
 There exist two neighboring datasets ${\D, \D' \in \Domain}$, a start parameter $\ptheta_0$, and a smooth loss function $\loss{\x}{\ptheta}$ on unconstrained convex set $\C=\mathbb{R}^d$, with a finite total gradient sensitivity $\sen{g}$, such that for any step-size $\step<1$, noise variance $\sig^2>0$, and iteration $\K\in\mathbb{N}$, the privacy loss of $\mathcal{A}_{\text{Noisy-GD}}$ on $\D, \D'$ is lower-bounded by
 $$
 \Ren{\q}{\thet_{\step\K}}{\thet_{\step\K}'} \geq \frac{\q S_g^2}{4\sig^2 n^2} \left( 1 - e^{-\step\K} \right).
@@ -325,7 +325,7 @@ where $\ptheta$ is the output of the randomized algorithm $\mathcal{A}\_{\text{N
 
 We provide the *optimal* excess empirical risk (utility) of noisy GD algorithm under an $(\eps, \delta)-DP constraint. The notion of *optimality* for utility is defined as the smallest upper-bound for excess empirical risk that can be guaranteed under $(\eps, \delta)$-DP constraint by tuning the algorithm's hyperparameters (such as the noise variance $\sig^2$ and the number of iterations $\K$).  
 
-<div class="theorem" id="optimal_empirical_risk"><b>2 (Empirical risk upper bound for $(\eps,\delta)$-DP Noisy GD).</b> 
+<div class="theorem" id="optimal_empirical_risk"><b>3 (Empirical risk upper bound for $(\eps,\delta)$-DP Noisy GD).</b> 
 For Lipschitz smooth strongly convex loss function $\ell(\theta;\x)$ on a bounded closed convex set $\mathcal{C}\subseteq\thetaspace$, and dataset $\D\in\Domain$ of size $n$, if the step-size $\eta=\frac{\lambda}{2\beta^2}$ and the initial parameter $\theta_0\sim\proj{\C}{\mathcal{N}(0,\frac{2\sig^2}{\lambda} I_d)}$, then the <a href="#goal-noisygd">noisy GD Algorithm</a> is $(\eps,\delta)$-differentially private, and satisfies
 $$
 	\mathbb{E}[\Loss_D(\theta_{K^*})-\Loss_D(\theta^*)]=O(\frac{\beta d L^2\log(1/\delta)}{\eps^2\lambda^2\size^2}),
@@ -335,7 +335,7 @@ by setting noise variance $\sig^2=\frac{8L^2 (\eps+2\log(1/\delta))}{\lambda\eps
 
 This utility matches the following theoretical lower bound in Bassily et al.<d-cite key="bassily2014private"> for the best attainable utility of $(\eps,\delta)$-differentially private algorithms on Lipschitz smooth strongly convex loss functions.
 
-<div class="theorem" id="optimal_empirical_risk"><b>3 (<d-cite key="bassily2014private"></d-cite>Empirical risk lower bound for $(\eps,\delta)$-DP).</b> 
+<div class="theorem" id="optimal_empirical_risk"><b>4 (<d-cite key="bassily2014private"></d-cite>Empirical risk lower bound for $(\eps,\delta)$-DP).</b> 
 Let $\size, d \in \mathbb N$, $\eps > 0$, and $\delta=o(\frac{1}{n})$. For every $(\eps, \delta)$-differentially private algorithm $\mathcal A$ (whose output is denoted by $\theta^{priv}$), then
 $$
 \mathbb{E}[\Loss_\D(\ptheta^{priv}) - \Loss_\D(\ptheta^*)] = \Omega\left(\min\left\{1, \frac{d}{\eps^2 \size^2}\right\}\right),
