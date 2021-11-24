@@ -28,7 +28,8 @@ toc:
         - name: Tracing Diffusion for Noisy GD
         - name: Privacy erosion along tracing diffusion
         - name: Controlling Rényi privacy loss rate
-    - name: Tightness analysis
+    - name: Tightness Analysis
+    - name: Utility Analysis
     - name: Conclusion
 ---
 
@@ -71,8 +72,6 @@ $$
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Expec}[2]{\underset{#1}{\E}\left[#2\right]}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert_2}
-$$
-$$
 \newcommand{\Fren}[3]{E_{#1}\left(#2\middle\|#3\right)}      % Changed name
 \newcommand{\Gren}[3]{I_{#1}\left(#2\middle\|#3\right)}
 \newcommand{\sen}[1]{S_{#1}}
@@ -297,7 +296,7 @@ On solving the DP dynamics PDI and unrolling it over all the $K$ steps of iterat
 {% responsive_image path: assets/2021-11-22-DPDynamics/privacy_loss_total.png class: "img-fluid rounded z-depth-1" zoomable: true %}
 </figure>
 
-## Tightness analysis
+## Tightness Analysis
 
 Differential privacy guarantees reflect a *bound* on privacy loss on an algorithm; thus, it is very crucial to also have an analysis of their tightness (i.e., how close they are to the exact privacy loss).  We prove that our guarantee in <a href="#main_theorem">Theorem 1</a> is tight. To this end, we construct an instance of the ERM optimization problem, for which we show that the Rényi privacy loss of the noisy GD algorithm grows at an order matching our guarantee in <a href="#main_theorem">Theorem 1</a>.
 
@@ -313,6 +312,44 @@ $$
 We prove this lower bound using the $\ell_2$-squared norm loss as ERM objective: $\underset{\theta\in\mathbb{R}^d}{\min}\sum_{i=1}^n\frac{\lVert\theta-\x_i\rVert_2^2}{n}$. We assume bounded data domain s.t. the gradient has finite sensitivity. With start parameter $\theta_0 = 0^d$, the $k^{\text{th}}$ step parameter $\theta_k$ is distributed as Gaussian with mean ${\mu_k=\step\bar{\x}\sum_{i=0}^{k-1}(1-\step)^i}$ and variance ${\sigma_k^2=\frac{2\eta\sigma^2}{\size^2}\sum_{i=0}^{k-1}(1-\step)^{2i}}$ in each dimension, where $\bar{x}=\sum_{i=1}^n\x_i/n$ is the empirical dataset mean. We explicitly compute the privacy loss at any step $\K$, which is lower bounded by ${\frac{\q S_g^2}{4\sig^2n^2}(1-e^{-\eta\K})}$. 
 
 Our <a href="#main_theorem">RDP guarantee</a> converges fast to $\frac{\alpha S_g^2}{\sig^2n^2}$, which matches the lower bound at every step $\K$, up to a constant of $4$. This immediately shows tightness of our converging RDP guarantee *throughout* the training process, for a converging noisy GD algorithm.
+
+## Utility Analysis
+
+The randomness, required for satisfying differential privacy, can adversely affect the utility of the trained model.  The standard way to measure the utility of a randomized ERM algorithm (for example, $\mathcal{A}\_{\text{Noisy-GD}}$) is to quantify its worst case *excess empirical risk*, which is defined as
+
+$$
+\max_{\D \in \Domain}\Expec{}{\Loss_{\D}(\ptheta) - \Loss_{\D}(\ptheta^*)},
+$$
+
+where $\ptheta$ is the output of the randomized algorithm $\mathcal{A}\_{\text{Noisy-GD}}$ on $\D$, $\ptheta^*$ is the optimal solution to the standard (no privacy) ERM on $\Loss_\D$, and the expectation is computed over the randomness of the algorithm.
+
+We provide the *optimal* excess empirical risk (utility) of noisy GD algorithm under an $(\eps, \delta)-DP constraint. The notion of *optimality* for utility is defined as the smallest upper-bound for excess empirical risk that can be guaranteed under $(\eps, \delta)$-DP constraint by tuning the algorithm's hyperparameters (such as the noise variance $\sig^2$ and the number of iterations $\K$).  
+
+<div class="theorem" id="optimal_empirical_risk"><b>2 (Empirical risk upper bound for $(\eps,\delta)$-DP Noisy GD).</b> 
+For Lipschitz smooth strongly convex loss function $\ell(\theta;\x)$ on a bounded closed convex set $\mathcal{C}\subseteq\thetaspace$, and dataset $\D\in\Domain$ of size $n$, if the step-size $\eta=\frac{\lambda}{2\beta^2}$ and the initial parameter $\theta_0\sim\proj{\C}{\mathcal{N}(0,\frac{2\sig^2}{\lambda} I_d)}$, then the <a href="#goal-noisygd">noisy GD Algorithm</a> is $(\eps,\delta)$-differentially private, and satisfies
+$$
+	\mathbb{E}[\Loss_D(\theta_{K^*})-\Loss_D(\theta^*)]=O(\frac{\beta d L^2\log(1/\delta)}{\eps^2\lambda^2\size^2}),
+$$
+by setting noise variance $\sig^2=\frac{8L^2 (\eps+2\log(1/\delta))}{\lambda\eps^2 n^2}$, and number of updates $K^*=\frac{2\beta^2}{\lambda^2}\log(\frac{n^2\eps^2}{4\log(1/\delta) d})$.
+</div>
+
+This utility matches the following theoretical lower bound in Bassily et al.<d-cite key="bassily2014private"> for the best attainable utility of $(\eps,\delta)$-differentially private algorithms on Lipschitz smooth strongly convex loss functions.
+
+<div class="theorem" id="optimal_empirical_risk"><b>3 (<d-cite key="bassily2014private"></d-cite>Empirical risk lower bound for $(\eps,\delta)$-DP).</b> 
+Let $\size, d \in \mathbb N$, $\eps > 0$, and $\delta=o(\frac{1}{n})$. For every $(\eps, \delta)$-differentially private algorithm $\mathcal A$ (whose output is denoted by $\theta^{priv}$), then
+$$
+\mathbb{E}[\Loss_\D(\ptheta^{priv}) - \Loss_\D(\ptheta^*)] = \Omega\left(\min\left\{1, \frac{d}{\eps^2 \size^2}\right\}\right),
+$$
+where $\ptheta^*$ minimizes a constructed $1$-Lipschitz, $1$-strongly convex objective $\mathcal{L}_D(\theta)$ over convex set $\C$.
+</div>
+
+<figure id="utility_table">
+{% responsive_image path: assets/2021-11-22-DPDynamics/utility_table.png class: "img-fluid rounded z-depth-1" zoomable: true %}
+</figure>
+
+Our utility matches this lower bound upto the constant factor $\log(1/\delta)$, when assuming $\frac{\beta}{\lambda^2}=O(1)$. This improves upon the previous gradient perturbation methods<d-cite key="bassily2014private,wang2018differentially"></d-cite> by a factor of $\log(n)$, and matches the utility of previously know optimal ERM algorithm for Lipschitz smooth strongly convex loss functions, such as objective perturbation<d-cite key="chaudhuri2011differentially,kifer2012private"></d-cite> and output perturbation<d-cite key="zhang2017efficient"></d-cite>. As shown in <a href="#utility_table">Table 1</a>, our utility guarantee for noisy GD is logarithmically better than that for noisy SGD in Bassily et al.<d-cite key="bassily2014private"></d-cite>, although the two algorithms are extremely similar. This is because we use our tight RDP guarantee, while Bassily et al.<d-cite key="bassily2014private"></d-cite> use a composition-based privacy bound. More specifically, noisy SGD needs $n^2$ iterations to achieve the optimal utility, as shown in <a href="#utility_table">Table 1</a>. This number of iterations is large enough for the composition-based privacy bound to grow above our RDP guarantee, thus leaving room for improving privacy utility trade-off. This concludes that our tight privacy guarantee enables providing a superior privacy-utility trade-off, for Lipschitz, strongly convex, and smooth loss functions. 
+
+Our algorithm also has significantly smaller gradient complexity than noisy SGD<d-cite key="bassily2014private"></d-cite>, for strongly convex loss functions, by a factor of ${n}/{\log n}$. We use a (moderately large) constant step-size, thus achieving fast convergence to optimal utility. However, noisy SGD <d-cite key="bassily2014private"></d-cite> uses a decreasing step-size, thus requiring more iterations to reach optimal utility.
 
 ## Conclusion
 We have developed a novel theoretical framework for analyzing the dynamics of privacy loss for noisy gradient descent algorithms.  Our theoretical results show that by hiding the internal state of the training algorithm (over many iterations over the whole data), we can tightly analyze the rate of information leakage throughout training, and derive a bound that is significantly tighter than that of composition-based approaches. 

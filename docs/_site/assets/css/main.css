@@ -11,13 +11,17 @@ html[data-theme='dark'] .fa-sun { padding-left: 10px; padding-top: 12px; display
 html[data-theme='dark'] .fa-moon { display: none; }
 
 /* from http://drz.ac/2013/01/17/latex-theorem-like-environments-for-the-web/ */
-.theorem { display: block; margin: 12px 0; font-style: italic; text-align: justify; background-color: #ffdddd; }
+.theorem { display: block; margin: 12px 0; font-style: italic; text-align: justify; transition: transform .2s; /* Animation */ background-color: #7bcce4; }
 
 .theorem:before { content: "Theorem. "; font-weight: bold; font-style: normal; }
 
-.lemma { display: block; margin: 12px 0; font-style: italic; text-align: justify; background-color: #e8e8e8; }
+.theorem:hover { transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */ }
+
+.lemma { display: block; margin: 12px 0; font-style: italic; text-align: justify; transition: transform .2s; /* Animation */ background-color: #e8e8e8; }
 
 .lemma:before { content: "Lemma. "; font-weight: bold; font-style: normal; }
+
+.lemma:hover { transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */ }
 
 .proof { display: block; margin: 12px 0; font-style: normal; }
 
