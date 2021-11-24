@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source "http://rubygems.org"
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
@@ -23,8 +23,22 @@ gem "github-pages", group: :jekyll_plugins
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
+  gem 'jekyll'
+  gem 'jekyll-archives'
+  gem 'jekyll-diagrams'
+  gem 'jekyll-email-protect'
   gem "jekyll-feed", "~> 0.6"
+  gem 'jekyll-github-metadata'
+  gem 'jekyll-paginate-v2'
+  gem 'jekyll-responsive-image'
+  gem 'jekyll-scholar'
   gem "jekyll-seo-tag", "~> 2.6.1"
+  gem 'jekyll-sitemap'
+  gem 'jekyll-target-blank'
+  gem 'jekyll-twitter-plugin'
+  gem 'jemoji'
+  gem 'unicode_utils'
+  gem 'webrick'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

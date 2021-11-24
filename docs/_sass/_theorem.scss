@@ -1,0 +1,80 @@
+/* from http://drz.ac/2013/01/17/latex-theorem-like-environments-for-the-web/ */
+
+.theorem {
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+    text-align: justify;
+    background-color: #{$pink-color-light};
+}
+.theorem:before {
+    content: "Theorem. ";
+    font-weight: bold;
+    font-style: normal;
+}
+.lemma {
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+    text-align: justify;
+    background-color: #{$grey-color-light};
+}
+.lemma:before {
+    content: "Lemma. ";
+    font-weight: bold;
+    font-style: normal;
+}
+.proof {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+}
+.proof:before {
+    content: "Proof. ";
+    font-style: italic;
+}
+.proof:after {
+    content: "\25FC";
+    float:right;
+}
+.definition {
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+    text-align: justify;
+}
+.definition:before {
+    content: "Definition. ";
+    font-weight: bold;
+    font-style: normal;
+}
+.remark {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+}
+.remark:before {
+    content: "Remark. ";
+    font-weight: bold;
+    font-style: normal;
+}
+.proposition {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+}
+.proposition:before {
+    content: "Proposition. ";
+    font-weight: bold;
+    font-style: normal;
+}
+.corollary {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+}
+.corollary:before {
+    content: "Corollary. ";
+    font-weight: bold;
+    font-style: normal;
+}

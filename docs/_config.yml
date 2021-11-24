@@ -33,6 +33,18 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+responsive_image:
+  template: _includes/responsive_img.html
+  # Quality to use when resizing images.
+  default_quality: 80
+  sizes:
+    - width: 480
+    - width: 800
+    - width: 1400
+      quality: 90
+  # Strip EXIF and other JPEG profiles. Helps to minimize JPEG size.
+  strip: true
+
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
