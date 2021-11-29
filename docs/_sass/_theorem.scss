@@ -13,9 +13,6 @@
     font-weight: bold;
     font-style: normal;
 }
-.theorem:hover {
-    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  }
 .lemma {
     display: block;
     margin: 12px 0;
@@ -29,9 +26,6 @@
     font-weight: bold;
     font-style: normal;
 }
-.lemma:hover {
-    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  }
 .proof {
     display: block;
     margin: 12px 0;
