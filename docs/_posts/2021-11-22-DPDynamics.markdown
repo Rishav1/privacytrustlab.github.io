@@ -127,7 +127,10 @@ $\Ren{\q}{\mathcal A(\D)}{\mathcal A(\D')} \leq \eps$.
 </aside>
 
 <div id="renyi_differential_privacy">
-{% responsive_image path: assets/2021-11-22-DPDynamics/renyi_differential_privacy.png class: "img-fluid rounded z-depth-1" zoomable: true %}
+<picture>
+    <source srcset="{{ site.baseurl }}/assets/2021-11-22-DPDynamics/renyi_differential_privacy.png" media="(min-width: 768px)" />
+    <img srcset="renyi_differential_privacy.png" alt="RDP" />
+</picture>
 </div>
 
 In this paper, our objective is to model and analyze the **dynamics of differential privacy** of a popular randomized ERM algorithm called *Noisy Gradient Descent*<d-cite key="bassily2014private"></d-cite> (<a href="#goal-noisygd">Algorithm 1</a>). 
@@ -179,7 +182,10 @@ with $Z_k \sim \mathcal{N}(0,\mathbb{I}_d)$.
 These two discrete jumps can be interpolated with two stochastic processes $\thet_t$ and $\thet_t'$ over time $\step k \leq t\leq\step (k+1)$ respectively (visualized below via dotted lines). 
 
 <figure id="coupled_diffusion">
-{% responsive_image path: assets/2021-11-22-DPDynamics/coupled_diffusion.png class: "img-fluid rounded z-depth-1" zoomable: true %}
+<picture>
+    <source srcset="{{ site.baseurl }}/assets/2021-11-22-DPDynamics/coupled_diffusion.png" media="(min-width: 768px)" />
+    <img srcset="coupled_diffusion.png" alt="RDP" />
+</picture>
 </figure>
 
 At the start of each step, $t=\eta k$, the random variables $\thet_{\eta k}$ and $\thet_{\eta k}'$ model the distribution of the $\theta_k$ and $\theta_k'$ in the noisy GD processes respectively. Immediately after $t=\eta k$, the random variables undergo identical mapping $\phi(\cdot)$ defined as $\phi(\theta) = \theta - \eta U_+(\theta)$. During time $\eta k< t <\eta (k+1)$, the two process diffuse along opposing vector fields ($U_-(\cdot)$ and $-U_-(\cdot)$) with Brownian perturbation. At the end of step, i.e. at $t \rightarrow \eta (k+1)$, we project $\thet_t$ and $\thet_t'$ onto convex set $\C$, and obtain $\thet_{\eta (k + 1)}$ and $\thet_{\eta (k + 1)}'$.
@@ -287,13 +293,19 @@ $$
 As per our <a href="#coupled_diffusion">coupled tracing diffusion</a> process, no privacy loss is incurred at integral multiples of $\step$ as both the mapping $\phi(\cdot)$ and $\proj{\C}{\cdot}$ are identical for the coupled processes, and therefore can be seen as post-processing step (as shown below).
 
 <figure id="privacy_loss_one_step">
-{% responsive_image path: assets/2021-11-22-DPDynamics/privacy_loss_one_step.png class: "img-fluid rounded z-depth-1" zoomable: true %}
+<picture>
+    <source srcset="{{ site.baseurl }}/assets/2021-11-22-DPDynamics/privacy_loss_one_step.png" media="(min-width: 768px)" />
+    <img srcset="privacy_loss_one_step.png" alt="RDP" />
+</picture>
 </figure>
 
 On solving the DP dynamics PDI and unrolling it over all the $K$ steps of iteration yields the privacy guarantee stated in <a href="#main_theorem">Theorem 1</a>. <a href="#privacy_loss_total">Figure below</a> demonstrates how this RDP guarantee for noisy GD converges with the number of iterations $\K$. Through y-axis, we show the $\eps$ guaranteed for noisy GD under a reasonable choice of hyperparameters. The RDP order $\q$ linearly scales the asymptotic guarantee, but does not affect the convergence rate of RDP guarantee. However, the strong convexity parameter $\lambda$ positively affects the asymptotic guarantee as well as the convergence rate; the larger the strong convexity parameter $\lambda$ is, the stronger the asymptotic RDP guarantee and the faster the convergence.
  
 <figure id="privacy_loss_total">
-{% responsive_image path: assets/2021-11-22-DPDynamics/privacy_loss_total.png class: "img-fluid rounded z-depth-1" zoomable: true %}
+<picture>
+    <source srcset="{{ site.baseurl }}/assets/2021-11-22-DPDynamics/privacy_loss_total.png" media="(min-width: 768px)" />
+    <img srcset="privacy_loss_total.png" alt="RDP" />
+</picture>
 </figure>
 
 ## Tightness Analysis
@@ -344,7 +356,10 @@ where $\ptheta^*$ minimizes a constructed $1$-Lipschitz, $1$-strongly convex obj
 </div>
 
 <figure id="utility_table">
-{% responsive_image path: assets/2021-11-22-DPDynamics/utility_table.png class: "img-fluid rounded z-depth-1" zoomable: true %}
+<picture>
+    <source srcset="{{ site.baseurl }}/assets/2021-11-22-DPDynamics/utility_table.png" media="(min-width: 768px)" />
+    <img srcset="utility_table.png" alt="RDP" />
+</picture>
 </figure>
 
 Our utility matches this lower bound upto the constant factor $\log(1/\delta)$, when assuming $\frac{\beta}{\lambda^2}=O(1)$. This improves upon the previous gradient perturbation methods<d-cite key="bassily2014private,wang2018differentially"></d-cite> by a factor of $\log(n)$, and matches the utility of previously know optimal ERM algorithm for Lipschitz smooth strongly convex loss functions, such as objective perturbation<d-cite key="chaudhuri2011differentially,kifer2012private"></d-cite> and output perturbation<d-cite key="zhang2017efficient"></d-cite>. As shown in <a href="#utility_table">Table 1</a>, our utility guarantee for noisy GD is logarithmically better than that for noisy SGD in Bassily et al.<d-cite key="bassily2014private"></d-cite>, although the two algorithms are extremely similar. This is because we use our tight RDP guarantee, while Bassily et al.<d-cite key="bassily2014private"></d-cite> use a composition-based privacy bound. More specifically, noisy SGD needs $n^2$ iterations to achieve the optimal utility, as shown in <a href="#utility_table">Table 1</a>. This number of iterations is large enough for the composition-based privacy bound to grow above our RDP guarantee, thus leaving room for improving privacy utility trade-off. This concludes that our tight privacy guarantee enables providing a superior privacy-utility trade-off, for Lipschitz, strongly convex, and smooth loss functions. 

@@ -8,6 +8,11 @@
     <script src="https://distill.pub/transforms.v2.js"></script>
     <script src="{{ site.baseurl }}/assets/js/katex.min.js"></script>
     <script src="{{ site.baseurl }}/assets/js/pseudocode.min.js" type="text/javascript"></script>
+    <script>
+      // Picture element HTML5 shiv
+      document.createElement( "picture" );
+    </script>
+    <script src="{{ site.baseurl }}/assets/js/picturefill.min.js" async></script>
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/katex.min.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/pseudocode.min.css" type="text/css">
     {% if page._styles %}

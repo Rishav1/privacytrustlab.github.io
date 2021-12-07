@@ -18,7 +18,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-11-22T11:00:00+08:00" />
 <script type="application/ld+json">
-{"headline":"DP Dynamics of Noisy Gradient Descent","dateModified":"2021-11-22T11:00:00+08:00","datePublished":"2021-11-22T11:00:00+08:00","url":"http://0.0.0.0:4000/jekyll/update/2021/11/22/DPDynamics.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/jekyll/update/2021/11/22/DPDynamics.html"},"author":{"@type":"Person","name":"Rishav Chourasia*"},"description":"$$ \\newcommand{\\D}{D} % dataset / database \\newcommand{\\smh}{\\beta} % Smoothness parameter \\newcommand{\\loss}[2]{\\ell(#2;\\mathbf{#1})} % Small loss \\loss; inputs are fine \\newcommand{\\ptheta}{\\theta} % Removed input and shortened \\newcommand{\\thet}{\\Theta} % Removed input and shortened \\newcommand{\\x}{\\mathbf{x}} \\newcommand{\\K}{K} % Number of steps \\newcommand{\\T}{T} % Number of steps \\newcommand{\\kk}{k} \\newcommand{\\proj}[2]{\\Pi_{#1}(#2)} \\newcommand{\\C}{\\mathcal{C}} \\newcommand{\\sig}{\\sigma} \\newcommand{\\q}{\\alpha} \\newcommand{\\eps}{\\varepsilon} % Define epsion \\newcommand{\\size}{n} % Database size \\newcommand{\\step}{\\eta} \\newcommand{\\R}{\\mathbb{R}} % Notation for Real numbers \\newcommand{\\Univ}{\\mathcal{X}} % Universe of all database records. \\newcommand{\\thetaspace}{\\mathbb{R}^d} \\newcommand{\\ve}{\\mathbf v} \\newcommand{\\Loss}{\\mathcal{L}} % Big loss \\Loss; inputs not necessary \\newcommand{\\Domain}{\\Univ^\\size} % Set of all possible databases \\newcommand{\\Ren}[3]{R_{#1}\\left(#2\\middle\\|#3\\right)} % Sortened the name \\newcommand{\\deltW}[1]{\\dif{\\W{#1}}} \\newcommand{\\graD}[1]{\\nabla #1} \\newcommand{\\hesS}[1]{\\nabla^2 #1} \\newcommand{\\tra}[1]{\\textsf{Tr}\\left(#1\\right)} \\newcommand{\\dif}[1]{d #1} \\newcommand{\\der}[2]{\\frac{\\dif{#1}}{\\dif{#2}}} \\newcommand{\\doh}[2]{\\frac{\\partial #1}{\\partial #2}} \\newcommand{\\lapL}[1]{\\Delta #1} \\newcommand{\\divR}[1]{\\nabla \\cdot #1} \\newcommand{\\W}[1]{\\mathbf{W}_{#1}} \\newcommand{\\E}{\\mathbb{E}} \\newcommand{\\Expec}[2]{\\underset{#1}{\\E}\\left[#2\\right]} \\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert_2} \\newcommand{\\Fren}[3]{E_{#1}\\left(#2\\middle\\|#3\\right)} % Changed name \\newcommand{\\Gren}[3]{I_{#1}\\left(#2\\middle\\|#3\\right)} \\newcommand{\\sen}[1]{S_{#1}} $$","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/jekyll/update/2021/11/22/DPDynamics.html"},"url":"http://0.0.0.0:4000/jekyll/update/2021/11/22/DPDynamics.html","headline":"DP Dynamics of Noisy Gradient Descent","dateModified":"2021-11-22T11:00:00+08:00","datePublished":"2021-11-22T11:00:00+08:00","description":"$$ \\newcommand{\\D}{D} % dataset / database \\newcommand{\\smh}{\\beta} % Smoothness parameter \\newcommand{\\loss}[2]{\\ell(#2;\\mathbf{#1})} % Small loss \\loss; inputs are fine \\newcommand{\\ptheta}{\\theta} % Removed input and shortened \\newcommand{\\thet}{\\Theta} % Removed input and shortened \\newcommand{\\x}{\\mathbf{x}} \\newcommand{\\K}{K} % Number of steps \\newcommand{\\T}{T} % Number of steps \\newcommand{\\kk}{k} \\newcommand{\\proj}[2]{\\Pi_{#1}(#2)} \\newcommand{\\C}{\\mathcal{C}} \\newcommand{\\sig}{\\sigma} \\newcommand{\\q}{\\alpha} \\newcommand{\\eps}{\\varepsilon} % Define epsion \\newcommand{\\size}{n} % Database size \\newcommand{\\step}{\\eta} \\newcommand{\\R}{\\mathbb{R}} % Notation for Real numbers \\newcommand{\\Univ}{\\mathcal{X}} % Universe of all database records. \\newcommand{\\thetaspace}{\\mathbb{R}^d} \\newcommand{\\ve}{\\mathbf v} \\newcommand{\\Loss}{\\mathcal{L}} % Big loss \\Loss; inputs not necessary \\newcommand{\\Domain}{\\Univ^\\size} % Set of all possible databases \\newcommand{\\Ren}[3]{R_{#1}\\left(#2\\middle\\|#3\\right)} % Sortened the name \\newcommand{\\deltW}[1]{\\dif{\\W{#1}}} \\newcommand{\\graD}[1]{\\nabla #1} \\newcommand{\\hesS}[1]{\\nabla^2 #1} \\newcommand{\\tra}[1]{\\textsf{Tr}\\left(#1\\right)} \\newcommand{\\dif}[1]{d #1} \\newcommand{\\der}[2]{\\frac{\\dif{#1}}{\\dif{#2}}} \\newcommand{\\doh}[2]{\\frac{\\partial #1}{\\partial #2}} \\newcommand{\\lapL}[1]{\\Delta #1} \\newcommand{\\divR}[1]{\\nabla \\cdot #1} \\newcommand{\\W}[1]{\\mathbf{W}_{#1}} \\newcommand{\\E}{\\mathbb{E}} \\newcommand{\\Expec}[2]{\\underset{#1}{\\E}\\left[#2\\right]} \\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert_2} \\newcommand{\\Fren}[3]{E_{#1}\\left(#2\\middle\\|#3\\right)} % Changed name \\newcommand{\\Gren}[3]{I_{#1}\\left(#2\\middle\\|#3\\right)} \\newcommand{\\sen}[1]{S_{#1}} $$","author":{"@type":"Person","name":"Rishav Chourasia*"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/feed.xml" title="Data Privacy and Trustworthy Machine Learning Research Lab" /></head>
 
@@ -48,6 +48,11 @@
     <script src="https://distill.pub/transforms.v2.js"></script>
     <script src="/assets/js/katex.min.js"></script>
     <script src="/assets/js/pseudocode.min.js" type="text/javascript"></script>
+    <script>
+      // Picture element HTML5 shiv
+      document.createElement( "picture" );
+    </script>
+    <script src="/assets/js/picturefill.min.js" async></script>
     <link rel="stylesheet" href="/assets/css/katex.min.css">
     <link rel="stylesheet" href="/assets/css/pseudocode.min.css" type="text/css">
     
@@ -245,7 +250,10 @@ A randomized algorithm $\mathcal A: \Domain \rightarrow \thetaspace$ satisfies <
 $\Ren{\q}{\mathcal A(\D)}{\mathcal A(\D')} \leq \eps$.
 </aside>
 <div id="renyi_differential_privacy">
-<img class="img-fluid rounded z-depth-1" src="/assets/resized/renyi_differential_privacy-800x284.png" srcset="    /assets/resized/renyi_differential_privacy-480x171.png 480w,    /assets/resized/renyi_differential_privacy-800x284.png 800w,/ assets/2021-11-22-DPDynamics/renyi_differential_privacy.png 847w" data-zoomable>
+<picture>
+    <source srcset="/assets/2021-11-22-DPDynamics/renyi_differential_privacy.png" media="(min-width: 768px)"></source>
+    <img srcset="renyi_differential_privacy.png" alt="RDP">
+</picture>
 </div>
 <p>In this paper, our objective is to model and analyze the <strong>dynamics of differential privacy</strong> of a popular randomized ERM algorithm called <em>Noisy Gradient Descent</em><d-cite key="bassily2014private"></d-cite> (<a href="#goal-noisygd">Algorithm 1</a>).</p>
 <pre id="read-noisygd" style="display:none;">
@@ -290,7 +298,10 @@ $$
 with $Z_k \sim \mathcal{N}(0,\mathbb{I}_d)$.</p>
 <p>These two discrete jumps can be interpolated with two stochastic processes $\thet_t$ and $\thet_t'$ over time $\step k \leq t\leq\step (k+1)$ respectively (visualized below via dotted lines).</p>
 <figure id="coupled_diffusion">
-<img class="img-fluid rounded z-depth-1" src="/assets/resized/coupled_diffusion-800x417.png" srcset="    /assets/resized/coupled_diffusion-480x250.png 480w,    /assets/resized/coupled_diffusion-800x417.png 800w,/ assets/2021-11-22-DPDynamics/coupled_diffusion.png 1298w" data-zoomable>
+<picture>
+    <source srcset="/assets/2021-11-22-DPDynamics/coupled_diffusion.png" media="(min-width: 768px)"></source>
+    <img srcset="coupled_diffusion.png" alt="RDP">
+</picture>
 </figure>
 <p>At the start of each step, $t=\eta k$, the random variables $\thet_{\eta k}$ and $\thet_{\eta k}'$ model the distribution of the $\theta_k$ and $\theta_k'$ in the noisy GD processes respectively. Immediately after $t=\eta k$, the random variables undergo identical mapping $\phi(\cdot)$ defined as $\phi(\theta) = \theta - \eta U_+(\theta)$. During time $\eta k&lt; t &lt;\eta (k+1)$, the two process diffuse along opposing vector fields ($U_-(\cdot)$ and $-U_-(\cdot)$) with Brownian perturbation. At the end of step, i.e. at $t \rightarrow \eta (k+1)$, we project $\thet_t$ and $\thet_t'$ onto convex set $\C$, and obtain $\thet_{\eta (k + 1)}$ and $\thet_{\eta (k + 1)}'$.</p>
 <p>Repeating the construction for $k=0,\cdots,K-1$, we define two piece-wise continuous diffusion processes $\{ \thet_t \}_{t \geq 0}$ and $\{ \thet_t' \}_{t \geq 0}$ whose distributions at time $t=\step k$ are consistent with $\theta_k$ and $\theta_{k}'$ in the noisy GD processes for any $k \in \{0,\cdots, K-1\}$.</p>
@@ -377,11 +388,17 @@ $$
 $$</p>
 <p>As per our <a href="#coupled_diffusion">coupled tracing diffusion</a> process, no privacy loss is incurred at integral multiples of $\step$ as both the mapping $\phi(\cdot)$ and $\proj{\C}{\cdot}$ are identical for the coupled processes, and therefore can be seen as post-processing step (as shown below).</p>
 <figure id="privacy_loss_one_step">
-<img class="img-fluid rounded z-depth-1" src="/assets/resized/privacy_loss_one_step-480x171.png" srcset="    /assets/resized/privacy_loss_one_step-480x171.png 480w,/ assets/2021-11-22-DPDynamics/privacy_loss_one_step.png 731w" data-zoomable>
+<picture>
+    <source srcset="/assets/2021-11-22-DPDynamics/privacy_loss_one_step.png" media="(min-width: 768px)"></source>
+    <img srcset="privacy_loss_one_step.png" alt="RDP">
+</picture>
 </figure>
 <p>On solving the DP dynamics PDI and unrolling it over all the $K$ steps of iteration yields the privacy guarantee stated in <a href="#main_theorem">Theorem 1</a>. <a href="#privacy_loss_total">Figure below</a> demonstrates how this RDP guarantee for noisy GD converges with the number of iterations $\K$. Through y-axis, we show the $\eps$ guaranteed for noisy GD under a reasonable choice of hyperparameters. The RDP order $\q$ linearly scales the asymptotic guarantee, but does not affect the convergence rate of RDP guarantee. However, the strong convexity parameter $\lambda$ positively affects the asymptotic guarantee as well as the convergence rate; the larger the strong convexity parameter $\lambda$ is, the stronger the asymptotic RDP guarantee and the faster the convergence.</p>
 <figure id="privacy_loss_total">
-<img class="img-fluid rounded z-depth-1" src="/assets/resized/privacy_loss_total-480x197.png" srcset="    /assets/resized/privacy_loss_total-480x197.png 480w,/ assets/2021-11-22-DPDynamics/privacy_loss_total.png 676w" data-zoomable>
+<picture>
+    <source srcset="/assets/2021-11-22-DPDynamics/privacy_loss_total.png" media="(min-width: 768px)"></source>
+    <img srcset="privacy_loss_total.png" alt="RDP">
+</picture>
 </figure>
 <h2 id="tightness-analysis">Tightness Analysis</h2>
 <p>Differential privacy guarantees reflect a <em>bound</em> on privacy loss on an algorithm; thus, it is very crucial to also have an analysis of their tightness (i.e., how close they are to the exact privacy loss).  We prove that our guarantee in <a href="#main_theorem">Theorem 1</a> is tight. To this end, we construct an instance of the ERM optimization problem, for which we show that the Rényi privacy loss of the noisy GD algorithm grows at an order matching our guarantee in <a href="#main_theorem">Theorem 1</a>.</p>
@@ -420,7 +437,10 @@ $$
 where $\ptheta^*$ minimizes a constructed $1$-Lipschitz, $1$-strongly convex objective $\mathcal{L}_D(\theta)$ over convex set $\C$.
 </div>
 <figure id="utility_table">
-<img class="img-fluid rounded z-depth-1" src="/assets/resized/utility_table-800x334.png" srcset="    /assets/resized/utility_table-480x201.png 480w,    /assets/resized/utility_table-800x334.png 800w,/ assets/2021-11-22-DPDynamics/utility_table.png 967w" data-zoomable>
+<picture>
+    <source srcset="/assets/2021-11-22-DPDynamics/utility_table.png" media="(min-width: 768px)"></source>
+    <img srcset="utility_table.png" alt="RDP">
+</picture>
 </figure>
 <p>Our utility matches this lower bound upto the constant factor $\log(1/\delta)$, when assuming $\frac{\beta}{\lambda^2}=O(1)$. This improves upon the previous gradient perturbation methods<d-cite key="bassily2014private,wang2018differentially"></d-cite> by a factor of $\log(n)$, and matches the utility of previously know optimal ERM algorithm for Lipschitz smooth strongly convex loss functions, such as objective perturbation<d-cite key="chaudhuri2011differentially,kifer2012private"></d-cite> and output perturbation<d-cite key="zhang2017efficient"></d-cite>. As shown in <a href="#utility_table">Table 1</a>, our utility guarantee for noisy GD is logarithmically better than that for noisy SGD in Bassily et al.<d-cite key="bassily2014private"></d-cite>, although the two algorithms are extremely similar. This is because we use our tight RDP guarantee, while Bassily et al.<d-cite key="bassily2014private"></d-cite> use a composition-based privacy bound. More specifically, noisy SGD needs $n^2$ iterations to achieve the optimal utility, as shown in <a href="#utility_table">Table 1</a>. This number of iterations is large enough for the composition-based privacy bound to grow above our RDP guarantee, thus leaving room for improving privacy utility trade-off. This concludes that our tight privacy guarantee enables providing a superior privacy-utility trade-off, for Lipschitz, strongly convex, and smooth loss functions.</p>
 <p>Our algorithm also has significantly smaller gradient complexity than noisy SGD<d-cite key="bassily2014private"></d-cite>, for strongly convex loss functions, by a factor of ${n}/{\log n}$. We use a (moderately large) constant step-size, thus achieving fast convergence to optimal utility. However, noisy SGD <d-cite key="bassily2014private"></d-cite> uses a decreasing step-size, thus requiring more iterations to reach optimal utility.</p>
