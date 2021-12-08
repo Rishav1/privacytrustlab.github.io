@@ -16,8 +16,8 @@
 title: Data Privacy and Trustworthy Machine Learning Research Lab 
 description: >- # this means to ignore newlines until "baseurl:"
   Website of the NUS Data Privacy and Trustworthy Machine Learning Research Lab.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "privacytrustlab.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "privacytrustlab.github.io" # the subpath of your site, e.g. /blog
+url: "rishav1.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_usernames:
   - rzshokri
 
